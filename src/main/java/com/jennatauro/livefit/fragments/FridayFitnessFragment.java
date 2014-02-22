@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.adapters.WorkoutsAdapter;
 import com.jennatauro.livefit.models.Workout;
 
@@ -17,7 +19,7 @@ import java.util.List;
 /**
  * Created by jennatauro on 2/22/2014.
  */
-public class FridayFitnessFragment extends Fragment {
+public class FridayFitnessFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     public static final String FRAGMENT_TAG = "fragment_friday_fitness";
     ListView listView;
@@ -46,7 +48,14 @@ public class FridayFitnessFragment extends Fragment {
 
         adapter = new WorkoutsAdapter(getActivity(), R.layout.list_item_workouts, fakeworkouts);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
 
         return rootView;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Workout workout = adapter.getItem(i);
+        WorkoutDetailsActivity.start(getActivity(), workout.getWorkoutname());
     }
 }

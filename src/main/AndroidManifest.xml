@@ -23,6 +23,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jennatauro.livefit.MainActivity" />
         </activity>
+        <activity
+            android:name=".activities.WorkoutDetailsActivity"
+            android:label="@string/title_activity_workout_details"
+            android:icon="@drawable/ic_action_dumbbell">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jennatauro.livefit.FitnessHome" />
+        </activity>
     </application>
 
 </manifest>
