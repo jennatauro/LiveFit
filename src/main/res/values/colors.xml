@@ -2,4 +2,6 @@
 <resources>
     <color name="text_color_unselected_tab">#666666</color>
     <color name="text_color">#222222</color>
+    <color name="medium_orange">#FF8B40</color>
+    <color name="light_orange">#FFAA73</color>
 </resources>

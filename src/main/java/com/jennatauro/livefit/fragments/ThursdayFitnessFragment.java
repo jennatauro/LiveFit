@@ -1,9 +1,51 @@
 package com.jennatauro.livefit.fragments;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.adapters.WorkoutsAdapter;
+import com.jennatauro.livefit.models.Workout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jennatauro on 2/22/2014.
  */
 public class ThursdayFitnessFragment extends Fragment {
+    public static final String FRAGMENT_TAG = "fragment_thursday_fitness";
+    ListView listView;
+    WorkoutsAdapter adapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        List<Workout> fakeworkouts = new ArrayList<Workout>();
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+        fakeworkouts.add(new Workout("workout4"));
+
+        View rootView = inflater.inflate(R.layout.fragment_fitness_day, container, false);
+
+        listView = (ListView) rootView.findViewById(R.id.lv_workouts);
+
+        adapter = new WorkoutsAdapter(getActivity(), R.layout.list_item_workouts, fakeworkouts);
+        listView.setAdapter(adapter);
+
+        return rootView;
+    }
 }
