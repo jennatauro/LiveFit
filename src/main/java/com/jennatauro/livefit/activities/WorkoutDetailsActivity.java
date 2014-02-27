@@ -8,9 +8,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.adapters.ExercisesAdapter;
 import com.jennatauro.livefit.models.Exercise;
 import com.jennatauro.livefit.models.Workout;
 
@@ -22,6 +24,9 @@ public class WorkoutDetailsActivity extends ActionBarActivity {
     public static final String EXTRA_EXERCISE_LIST_KEY = "EXTRA_EXERCISE_LIST_KEY";
 
     ArrayList<Exercise> exercises;
+    ListView listView;
+
+    ExercisesAdapter adapter;
 
     public static void start(Context context, String workoutName, ArrayList<Exercise> exercises){
         context.startActivity(getIntent(context, workoutName, exercises));
@@ -41,10 +46,15 @@ public class WorkoutDetailsActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        listView =  (ListView) findViewById(R.id.lv_exercises);
+
         exercises = new ArrayList<Exercise>();
         exercises = getIntent().getParcelableArrayListExtra(EXTRA_EXERCISE_LIST_KEY);
 
-        ((TextView) findViewById(R.id.tv_workout_name)).setText(getIntent().getStringExtra(EXTRA_WORKOUT_NAME_KEY));
+        adapter = new ExercisesAdapter(this, R.layout.list_item_exercises, exercises);
+        listView.setAdapter(adapter);
+
+                ((TextView) findViewById(R.id.tv_workout_name)).setText(getIntent().getStringExtra(EXTRA_WORKOUT_NAME_KEY));
     }
 
     @Override
