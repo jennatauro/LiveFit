@@ -6,22 +6,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.models.Exercise;
+import com.jennatauro.livefit.models.Workout;
+
+import java.util.ArrayList;
 
 public class WorkoutDetailsActivity extends ActionBarActivity {
 
     public static final String EXTRA_WORKOUT_NAME_KEY = "EXTRA_WORKOUT_NAME_KEY";
+    public static final String EXTRA_EXERCISE_LIST_KEY = "EXTRA_EXERCISE_LIST_KEY";
 
-    public static void start(Context context, String workoutName){
-        context.startActivity(getIntent(context, workoutName));
+    ArrayList<Exercise> exercises;
+
+    public static void start(Context context, String workoutName, ArrayList<Exercise> exercises){
+        context.startActivity(getIntent(context, workoutName, exercises));
     }
 
-    private static Intent getIntent(Context context, String workoutName) {
+    private static Intent getIntent(Context context, String workoutName, ArrayList<Exercise> exercises) {
         final Intent intent = new Intent(context, WorkoutDetailsActivity.class);
         intent.putExtra(EXTRA_WORKOUT_NAME_KEY, workoutName);
+        intent.putParcelableArrayListExtra(EXTRA_EXERCISE_LIST_KEY, exercises);
         return intent;
     }
 
@@ -31,6 +40,9 @@ public class WorkoutDetailsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_workout_details);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        exercises = new ArrayList<Exercise>();
+        exercises = getIntent().getParcelableArrayListExtra(EXTRA_EXERCISE_LIST_KEY);
 
         ((TextView) findViewById(R.id.tv_workout_name)).setText(getIntent().getStringExtra(EXTRA_WORKOUT_NAME_KEY));
     }
