@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@android:color/white">
+
+
+        <TextView
+            android:id="@+id/tv_workout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/workout_name" />
+
+        <EditText
+            android:id="@+id/et_workout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:hint="@string/enter_workout_name"
+            android:layout_below="@+id/tv_workout_name" />
+
+        <TextView
+            android:id="@+id/tv_exercises"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/exercises"
+            android:layout_below="@+id/et_workout_name" />
+
+        <LinearLayout
+            android:id="@+id/ll_list_and_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_above="@+id/btn_save"
+            android:layout_below="@+id/tv_exercises">
+
+            <ListView
+                android:id="@+id/lv_workout_exercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_add_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_an_exercise"
+                android:background="@drawable/selector_orange_plus_minus"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_orange_plus_minus"
+            android:text="@string/save_workout"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/cancel"
+            android:background="@drawable/selector_orange_plus_minus" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

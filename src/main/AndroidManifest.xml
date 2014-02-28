@@ -31,6 +31,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jennatauro.livefit.FitnessHome" />
         </activity>
+        <activity
+            android:name=".activities.CreateNewWorkoutActivity"
+            android:label="@string/title_create_new_workout"
+            android:icon="@drawable/ic_action_dumbbell">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jennatauro.livefit.FitnessHome" />
+        </activity>
+        <activity
+            android:name=".activities.AddExerciseActivity"
+            android:label="@string/title_add_exercise"
+            android:icon="@drawable/ic_action_dumbbell">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jennatauro.livefit.CreateNewWorkoutActivity" />
+        </activity>
     </application>
 
 </manifest>

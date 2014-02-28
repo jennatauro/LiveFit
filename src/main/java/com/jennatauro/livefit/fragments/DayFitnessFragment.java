@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.activities.CreateNewWorkoutActivity;
 import com.jennatauro.livefit.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.adapters.WorkoutsAdapter;
 import com.jennatauro.livefit.models.Exercise;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by jennatauro on 2/22/2014.
  */
-public class DayFitnessFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class DayFitnessFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     public static final String FRAGMENT_TAG = "fragment_monday_fitness";
     ListView listView;
@@ -54,6 +55,8 @@ public class DayFitnessFragment extends Fragment implements AdapterView.OnItemCl
         adapter = new WorkoutsAdapter(getActivity(), R.layout.list_item_workouts, fakeworkouts);
         listView.setAdapter(adapter);
 
+        rootView.findViewById(R.id.iv_add_workout).setOnClickListener(this);
+
         return rootView;
     }
 
@@ -63,4 +66,12 @@ public class DayFitnessFragment extends Fragment implements AdapterView.OnItemCl
         WorkoutDetailsActivity.start(getActivity(), workout.getWorkoutname(), (ArrayList<Exercise>) workout.getExercises());
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.iv_add_workout:
+                CreateNewWorkoutActivity.start(getActivity());
+            break;
+        }
+    }
 }

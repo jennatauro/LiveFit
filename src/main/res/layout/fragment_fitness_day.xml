@@ -24,7 +24,7 @@
         android:layout_marginBottom="10dp"/>
 
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/iv_delete_workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
