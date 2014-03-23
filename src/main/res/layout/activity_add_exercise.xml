@@ -85,6 +85,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_seconds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
@@ -94,11 +95,13 @@
             android:id="@+id/et_seconds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:fontFamily="sans-serif-light"
             android:hint="@string/enter_exercise_time" />
 
 
         <TextView
+            android:id="@+id/tv_reps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
@@ -110,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
+            android:inputType="number"
             android:hint="@string/enter_exercise_reps"
             android:visibility="gone" />
 

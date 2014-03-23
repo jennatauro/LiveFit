@@ -14,4 +14,12 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"/>
 
+    <ImageView
+        android:id="@+id/iv_delete_workout_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_gravity="right"
+        android:focusable="false"/>
+
 </LinearLayout>

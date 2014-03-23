@@ -15,6 +15,10 @@ public class Workout {
 
     private List<Exercise> exercises;
 
+    public Workout(String workoutname){
+        this.workoutname = workoutname;
+    }
+
     public Workout(String workoutname, List<Exercise> exercises){
         this.workoutname = workoutname;
         this.exercises = exercises;

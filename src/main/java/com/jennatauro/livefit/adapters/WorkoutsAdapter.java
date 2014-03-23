@@ -2,28 +2,33 @@ package com.jennatauro.livefit.adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.models.Workout;
+import com.jennatauro.livefit.util.WorkoutDataSource;
 
 import java.util.List;
 
 /**
  * Created by jennatauro on 2/22/2014.
  */
-public class WorkoutsAdapter extends ArrayAdapter<Workout> {
+public class WorkoutsAdapter extends ArrayAdapter<Workout> implements View.OnClickListener{
 
     List<Workout> workouts;
+    WorkoutDataSource dataSource;
 
-    public WorkoutsAdapter(Context context, int resource, List<Workout> workouts) {
+    public WorkoutsAdapter(Context context, int resource, List<Workout> workouts, WorkoutDataSource dataSource) {
         super(context, resource);
         this.workouts = workouts;
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -33,7 +38,13 @@ public class WorkoutsAdapter extends ArrayAdapter<Workout> {
             convertView = inflater.inflate(R.layout.list_item_workouts, null);
         }
 
+        Workout workout = getItem(position);
+
         setRowView(position, convertView);
+
+        ImageView deleteButton = (ImageView) convertView.findViewById(R.id.iv_delete_workout_item);
+        deleteButton.setOnClickListener(this);
+        deleteButton.setTag(workout);
 
         return convertView;
     }
@@ -69,4 +80,17 @@ public class WorkoutsAdapter extends ArrayAdapter<Workout> {
         return 3;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.iv_delete_workout_item:
+                final Workout workout = (Workout) view.getTag();
+                dataSource.deleteWorkout(workout);
+                workouts.clear();
+                workouts = dataSource.getAllWorkouts();
+                notifyDataSetChanged();
+                Log.d("adaptersize", this.getCount() + "");
+            break;
+        }
+    }
 }
