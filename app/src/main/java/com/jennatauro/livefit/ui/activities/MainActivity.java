@@ -1,9 +1,11 @@
-package com.jennatauro.livefit;
+package com.jennatauro.livefit.ui.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.jennatauro.livefit.R;
 
 
 public class MainActivity extends Activity {
