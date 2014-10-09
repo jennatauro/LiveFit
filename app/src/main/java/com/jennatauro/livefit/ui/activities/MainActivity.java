@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.data.db.DbHelper;
+import com.jennatauro.livefit.data.models.Workout;
+
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -14,6 +19,20 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DbHelper helper = new DbHelper(this);
+        Workout workout = new Workout();
+        workout.setTitle("Created Workout");
+
+        Workout workout1 = new Workout();
+        workout1.setTitle("Second Workout");
+
+        helper.createOrUpdateWorkoutWithExercises(workout);
+        helper.createOrUpdateWorkoutWithExercises(workout1);
+
+
+        List<Workout> workouts = helper.getWorkouts();
+        ((TextView) findViewById(R.id.textview)).setText(workouts.get(0).getTitle());
     }
 
 
