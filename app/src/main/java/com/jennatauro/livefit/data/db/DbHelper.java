@@ -72,7 +72,6 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 
     private DbWorkout createOrUpdateWorkout(Workout workout) throws SQLException {
         Dao<DbWorkout, Integer> dao = DbWorkout.getDao(this);
-        setDbId(workout, dao);
         DbWorkout dbWorkout = new DbWorkout();
         dbWorkout.mapFrom(workout);
         dao.createOrUpdate(dbWorkout);
@@ -89,19 +88,6 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 //        deleteOldExercisesForWorkout(dbExerciseIds, dbWorkout);
 //        storeWorkoutRelatedItems(sequence, dbWorkSequence);
         return dbWorkout;
-    }
-
-
-    public void setDbId(LocalObject localObject, Dao<? extends DbTable, Integer> dao) throws SQLException {
-        if (localObject.getDbId() > 0) return; // This item already has a DB ID set.
-
-        Dao<DbTable, Integer> localDao = (Dao<DbTable, Integer>) dao;
-        QueryBuilder<DbTable, Integer> qb = localDao.queryBuilder();
-        DbTable dbItem = qb.selectColumns(DbTable.ID_FIELD_NAME).queryForFirst();
-        // If our object from the DB is null, we've never seen this server object before, therefore it'll be created.
-        if (dbItem != null) {
-            localObject.setDbId(dbItem.getId());
-        }
     }
 
     public List<Workout> getWorkouts(){
