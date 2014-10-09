@@ -23,9 +23,11 @@ public class MainActivity extends Activity {
         DbHelper helper = new DbHelper(this);
         Workout workout = new Workout();
         workout.setTitle("Created Workout");
+        workout.setDescription("Desc1");
 
         Workout workout1 = new Workout();
         workout1.setTitle("Second Workout");
+        workout1.setDescription("Desc2");
 
         helper.createOrUpdateWorkoutWithExercises(workout);
         helper.createOrUpdateWorkoutWithExercises(workout1);
