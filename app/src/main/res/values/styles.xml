@@ -3,6 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <!--TODO NOT USE THE CIRCLES-->
+        <item name="android:activatedBackgroundIndicator">@drawable/selector_home_circle_btn</item>
     </style>
 
 
