@@ -5,10 +5,9 @@ package com.jennatauro.livefit.data.models;
  */
 public class Exercise extends LocalObject {
 
+    private Workout workout;
     private String mTitle;
     private String mDescription;
-
-
     private int mWeight;
     private int mReps;
     private int mSeconds;
@@ -51,5 +50,13 @@ public class Exercise extends LocalObject {
 
     public void setSeconds(int mSeconds) {
         this.mSeconds = mSeconds;
+    }
+
+    public Workout getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 }

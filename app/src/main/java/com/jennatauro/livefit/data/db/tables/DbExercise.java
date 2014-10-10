@@ -15,11 +15,15 @@ import java.sql.SQLException;
 @DatabaseTable(tableName = "exercises")
 public class DbExercise extends DbTable<Exercise>{
 
+    public static final String WORKOUT_ID_FIELD_NAME = "workout_id";
     public static final String TITLE_FIELD_NAME = "title";
     public static final String DESCRIPTION_FIELD_NAME = "description";
     public static final String WEIGHT_FIELD_NAME = "weight";
     public static final String REPS_FIELD_NAME = "reps";
     public static final String SECONDS_FIELD_NAME = "seconds";
+
+    @DatabaseField(foreign = true, columnName = WORKOUT_ID_FIELD_NAME, canBeNull = false)
+    private DbWorkout workout;
 
     @DatabaseField(columnName = TITLE_FIELD_NAME, canBeNull = false)
     private String title;

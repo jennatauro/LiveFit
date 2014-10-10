@@ -9,8 +9,10 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.jennatauro.livefit.data.db.tables.DbExercise;
 import com.jennatauro.livefit.data.db.tables.DbTable;
 import com.jennatauro.livefit.data.db.tables.DbWorkout;
+import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.LocalObject;
 import com.jennatauro.livefit.data.models.Workout;
 
@@ -70,21 +72,30 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    public DbExercise createOrUpdateExercise(Exercise exercise) throws SQLException {
+        Dao<DbExercise, Integer> dao = DbExercise.getDao(this);
+        DbExercise dbExercise = new DbExercise();
+        dbExercise.mapFrom(exercise);
+        dao.createOrUpdate(dbExercise);
+        // If this was a create, we set the DB ID on the passed-in work item
+        exercise.setDbId(dbExercise.getId());
+        return dbExercise;
+    }
+
     private DbWorkout createOrUpdateWorkout(Workout workout) throws SQLException {
         Dao<DbWorkout, Integer> dao = DbWorkout.getDao(this);
         DbWorkout dbWorkout = new DbWorkout();
         dbWorkout.mapFrom(workout);
         dao.createOrUpdate(dbWorkout);
-        // In case this was a create, we'll set the DB ID on the passed-in workout
         workout.setDbId(dbWorkout.getId());
-//        List<Integer> dbExerciseIds = new ArrayList<Integer>();
-//        if (workout.getExercises() != null) {
-//            for (Exercise exercise : workout.getExercises()) {
-//                DbExercise dbExercise = createOrUpdateExercise(exercise, dbWorkout);
-//                dbExerciseIds.add(dbExercise.getId());
-//            }
-//        }
-//        // If this was an update, we might've deleted some work items. Delete anything that wasn't in the list of items.
+        List<Integer> dbExerciseIds = new ArrayList<Integer>();
+        if (workout.getExercises() != null) {
+            for (Exercise exercise : workout.getExercises()) {
+                DbExercise dbExercise = createOrUpdateExercise(exercise);
+                dbExerciseIds.add(dbExercise.getId());
+            }
+        }
+        // If this was an update, we might've deleted some work items. Delete anything that wasn't in the list of items.
 //        deleteOldExercisesForWorkout(dbExerciseIds, dbWorkout);
 //        storeWorkoutRelatedItems(sequence, dbWorkSequence);
         return dbWorkout;
@@ -109,5 +120,31 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
     public List<DbWorkout> getWorkoutsFromDb() throws SQLException {
         List<DbWorkout> dbWorkouts = DbWorkout.getDao(this).queryForAll();
         return dbWorkouts;
+    }
+
+    public List<Exercise> getExercisesForWorkout(Workout workout) {
+        if (workout == null) return null;
+        try {
+            Dao<DbWorkout, Integer> dbWorkoutIntegerDao = DbWorkout.getDao(this);
+            DbWorkout dbWorkout = new DbWorkout();
+            dbWorkout.mapFrom(workout);
+            List<DbExercise> dbExercises = getExercisesForDbWorkout(dbWorkout);
+            List<Exercise> result = new ArrayList<Exercise>();
+
+            for (DbExercise dbExercise : dbExercises) {
+                Exercise exercise = dbExercise.mapToLocalObject();
+                exercise.setWorkout(workout);
+                result.add(exercise);
+            }
+            return result;
+        } catch (SQLException e) {
+            Log.e(e.getMessage(), "Error fetching Exercises for Workout");
+            return null;
+        }
+    }
+
+    private List<DbExercise> getExercisesForDbWorkout(DbWorkout workout) throws SQLException {
+        List<DbExercise> dbExercises = DbExercise.getDao(this).queryForEq(DbExercise.WORKOUT_ID_FIELD_NAME, workout);
+        return dbExercises;
     }
 }
