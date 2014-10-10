@@ -30,6 +30,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 
     public static final Class[] TABLES = {
             DbWorkout.class,
+            DbExercise.class
     };
 
     public DbHelper(Context context) {
@@ -72,10 +73,11 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public DbExercise createOrUpdateExercise(Exercise exercise) throws SQLException {
+    public DbExercise createOrUpdateExercise(Exercise exercise, DbWorkout dbWorkout) throws SQLException {
         Dao<DbExercise, Integer> dao = DbExercise.getDao(this);
         DbExercise dbExercise = new DbExercise();
         dbExercise.mapFrom(exercise);
+        dbExercise.setWorkout(dbWorkout);
         dao.createOrUpdate(dbExercise);
         // If this was a create, we set the DB ID on the passed-in work item
         exercise.setDbId(dbExercise.getId());
@@ -91,7 +93,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         List<Integer> dbExerciseIds = new ArrayList<Integer>();
         if (workout.getExercises() != null) {
             for (Exercise exercise : workout.getExercises()) {
-                DbExercise dbExercise = createOrUpdateExercise(exercise);
+                DbExercise dbExercise = createOrUpdateExercise(exercise, dbWorkout);
                 dbExerciseIds.add(dbExercise.getId());
             }
         }

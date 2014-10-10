@@ -15,7 +15,7 @@ import java.sql.SQLException;
 @DatabaseTable(tableName = "exercises")
 public class DbExercise extends DbTable<Exercise>{
 
-    public static final String WORKOUT_ID_FIELD_NAME = "workout_id";
+    public static final String WORKOUT_ID_FIELD_NAME = "workoutid";
     public static final String TITLE_FIELD_NAME = "title";
     public static final String DESCRIPTION_FIELD_NAME = "description";
     public static final String WEIGHT_FIELD_NAME = "weight";
@@ -40,6 +40,14 @@ public class DbExercise extends DbTable<Exercise>{
 
     @DatabaseField(columnName = SECONDS_FIELD_NAME)
     private int seconds;
+
+    public DbWorkout getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(DbWorkout workout) {
+        this.workout = workout;
+    }
 
     public String getTitle() {
         return title;

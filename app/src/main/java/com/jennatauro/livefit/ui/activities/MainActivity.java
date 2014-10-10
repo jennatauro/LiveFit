@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
+import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.Workout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +26,12 @@ public class MainActivity extends Activity {
         Workout workout = new Workout();
         workout.setTitle("Created Workout");
         workout.setDescription("Desc1");
+
+        List<Exercise> list = new ArrayList<Exercise>();
+        Exercise exercise = new Exercise();
+        exercise.setTitle("Exercise Title");
+        list.add(exercise);
+        workout.setExercises(list);
 
         Workout workout1 = new Workout();
         workout1.setTitle("Second Workout");
