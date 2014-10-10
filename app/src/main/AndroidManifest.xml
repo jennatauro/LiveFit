@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activities.FitnessActivity"
+            android:label="@string/fitness" >
+
+        </activity>
     </application>
 
 </manifest>
