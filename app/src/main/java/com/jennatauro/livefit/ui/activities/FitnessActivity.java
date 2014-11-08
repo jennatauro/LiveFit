@@ -46,7 +46,7 @@ public class FitnessActivity extends FragmentActivity {
 
             // drawer has settled in a completely opened state
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerClosed(drawerView);
+                super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
             }
         };
