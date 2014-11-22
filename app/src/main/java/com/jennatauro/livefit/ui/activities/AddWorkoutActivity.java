@@ -31,12 +31,13 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         workoutNameEditText = (EditText) findViewById(R.id.activity_add_workout_workout_name);
         workoutDescriptionEditText = (EditText) findViewById(R.id.activity_add_workout_workout_description);
 
-        findViewById(R.id.add_workout_button).setOnClickListener(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.add_workout));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        findViewById(R.id.create_workout_button).setOnClickListener(this);
     }
 
     @Override
