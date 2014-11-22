@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_dumbbell"
-            android:background="@drawable/selector_home_circle_btn"/>
+            android:background="@drawable/yellow_selector"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_apple_black_silhouette"
-            android:background="@drawable/selector_home_circle_btn"/>
+            android:background="@drawable/yellow_selector"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_trophy_icon_614x460"
-            android:background="@drawable/selector_home_circle_btn"/>
+            android:background="@drawable/yellow_selector"/>
 
         <TextView
             android:layout_width="wrap_content"
