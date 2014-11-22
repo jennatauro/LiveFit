@@ -1,5 +1,6 @@
 package com.jennatauro.livefit.ui.activities;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,6 @@ import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
-import com.jennatauro.livefit.ui.dialogs.ExerciseDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,8 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 finish();
             }
             case (R.id.add_exercise_button): {
-                ExerciseDialog exerciseDialog = new ExerciseDialog(this);
+                Dialog exerciseDialog = new Dialog(this);
+                exerciseDialog.setContentView(R.layout.dialog_exercise);
                 exerciseDialog.show();
             }
         }
