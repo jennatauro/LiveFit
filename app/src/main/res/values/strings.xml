@@ -7,5 +7,7 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="all_workouts">All Workouts</string>
+    <string name="no_workouts_yet">You haven\'\ t added any workouts yet!</string>
 
 </resources>
