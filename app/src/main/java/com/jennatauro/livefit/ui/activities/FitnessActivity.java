@@ -3,7 +3,6 @@ package com.jennatauro.livefit.ui.activities;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -64,7 +63,7 @@ public class FitnessActivity extends LiveFitActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mFragmentTitles));
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item_drawer, mFragmentTitles));
 
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
