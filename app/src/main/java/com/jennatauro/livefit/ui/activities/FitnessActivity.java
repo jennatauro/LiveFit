@@ -41,7 +41,7 @@ public class FitnessActivity extends ActionBarActivity {
         mFragmentTitles = new String[]{Constants.NAV_TITLE_HOME, Constants.NAV_TITLE_SEE_ALL_WORKOUTS, Constants.NAV_TITLE_SCHEDULE};
         mDrawerList = (ListView) findViewById(R.id.fitness_activity_drawer_list);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.fitness_activity_drawer_layout);
-        mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 invalidateOptionsMenu();
