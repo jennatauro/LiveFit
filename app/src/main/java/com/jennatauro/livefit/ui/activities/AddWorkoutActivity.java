@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.jennatauro.livefit.R;
@@ -89,8 +91,13 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
             }
             case (R.id.add_exercise_button): {
                 Dialog exerciseDialog = new Dialog(this);
+                exerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 exerciseDialog.setContentView(R.layout.dialog_exercise);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(exerciseDialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
                 exerciseDialog.show();
+                exerciseDialog.getWindow().setAttributes(lp);
             }
         }
     }
