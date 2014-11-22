@@ -58,6 +58,12 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment implements View.OnCl
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadWorkouts();
+    }
+
     private void loadWorkouts() {
         List<Workout> allWorkouts = mDbHelper.getWorkouts();
         if(allWorkouts.size() == 0){
