@@ -13,6 +13,7 @@ import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
+import com.jennatauro.livefit.ui.dialogs.ExerciseDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,8 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 finish();
             }
             case (R.id.add_exercise_button): {
-                //exercise dialog
+                ExerciseDialog exerciseDialog = new ExerciseDialog(this);
+                exerciseDialog.show();
             }
         }
     }
