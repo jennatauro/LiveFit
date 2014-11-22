@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by jennatauro on 2014-10-09.
  */
-public class LiveFitFragment extends Fragment {
+public abstract class LiveFitFragment extends Fragment {
 
     public enum MenuOptions {
         HOME(0), SEEALLWORKOUTS(1), SCHEDULE(2);
@@ -44,4 +44,6 @@ public class LiveFitFragment extends Fragment {
                 return null;
         }
     }
+
+    public abstract String getTitle();
 }

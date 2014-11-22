@@ -28,6 +28,8 @@ public class FitnessActivity extends ActionBarActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private LiveFitFragment.MenuOptions currentFragmentMenuOption;
     private String CURRENT_FRAGMENT = "current_fragment";
+    private CharSequence mTitle;
+
     private Toolbar mToolbar;
 
     @Override
@@ -44,11 +46,13 @@ public class FitnessActivity extends ActionBarActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle(getResources().getString(R.string.fitness));
                 invalidateOptionsMenu();
             }
         };
@@ -104,6 +108,9 @@ public class FitnessActivity extends ActionBarActivity {
 
             // Create a new fragment
             LiveFitFragment fragment = LiveFitFragment.getInstance(menuSelection);
+            mTitle = fragment.getTitle();
+
+            getSupportActionBar().setTitle(mTitle);
 
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();

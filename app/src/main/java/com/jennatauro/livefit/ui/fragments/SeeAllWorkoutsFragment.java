@@ -21,4 +21,9 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
 
         return rootView;
     }
+
+    @Override
+    public String getTitle() {
+        return "All Workouts";
+    }
 }

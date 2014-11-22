@@ -19,4 +19,9 @@ public class WorkoutScheduleFragment extends LiveFitFragment {
 
         return rootView;
     }
+
+    @Override
+    public String getTitle() {
+        return "Workout Schedule";
+    }
 }
