@@ -68,6 +68,15 @@
             android:background="@drawable/yellow_button_selector"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/exercises_recyclerview"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
 
 
@@ -83,6 +92,7 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/yellow_button_selector"
         android:layout_marginTop="20dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"/>
 
 </RelativeLayout>
