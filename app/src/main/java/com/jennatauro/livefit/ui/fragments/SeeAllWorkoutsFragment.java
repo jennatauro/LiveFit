@@ -19,7 +19,7 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_see_all_workouts, container, false);
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_see_all_workouts, container, false);
 
         rootView.findViewById(R.id.add_workout_button).setOnClickListener(this);
 

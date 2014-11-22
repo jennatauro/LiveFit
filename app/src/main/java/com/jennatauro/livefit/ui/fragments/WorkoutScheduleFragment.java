@@ -15,7 +15,7 @@ public class WorkoutScheduleFragment extends LiveFitFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_workout_schedule, container, false);
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_workout_schedule, container, false);
 
         return rootView;
     }
