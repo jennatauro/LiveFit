@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
@@ -33,9 +34,13 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment implements View.OnCl
 
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private LinearLayout noWorkoutsLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_see_all_workouts, container, false);
+
+        noWorkoutsLayout = (LinearLayout) rootView.findViewById(R.id.no_workouts_yet_layout);
 
         mDbHelper = new DbHelper(getActivity());
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.all_workouts_recyclerview);
@@ -55,6 +60,14 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment implements View.OnCl
 
     private void loadWorkouts() {
         List<Workout> allWorkouts = mDbHelper.getWorkouts();
+        if(allWorkouts.size() == 0){
+            noWorkoutsLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
+        else{
+            noWorkoutsLayout.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
         mAdapter.replace(allWorkouts);
     }
 
