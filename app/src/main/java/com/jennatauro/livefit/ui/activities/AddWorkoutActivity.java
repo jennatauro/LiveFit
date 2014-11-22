@@ -52,6 +52,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 workout.setDescription(workoutDescriptionEditText.getText().toString());
 
                 mDbHelper.createOrUpdateWorkoutWithExercises(workout);
+                finish();
             }
         }
     }
