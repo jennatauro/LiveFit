@@ -31,7 +31,15 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     private ExerciseAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private EditText exerciseNameEditText;
+    private EditText exerciseDescriptionEditText;
+    private EditText exerciseWeightEditText;
+    private EditText exerciseRepsEditText;
+    private EditText exerciseTimeEditText;
     private List<Exercise> mExercises = new ArrayList<Exercise>();
+
+    private Dialog exerciseDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +98,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 finish();
             }
             case (R.id.add_exercise_button): {
-                Dialog exerciseDialog = new Dialog(this);
+                exerciseDialog = new Dialog(this);
                 exerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 exerciseDialog.setContentView(R.layout.dialog_exercise);
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -98,6 +106,13 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
                 exerciseDialog.show();
                 exerciseDialog.getWindow().setAttributes(lp);
+
+                exerciseDialog.findViewById(R.id.create_exercise_button).setOnClickListener(this);
+                break;
+            }
+            case (R.id.create_exercise_button): {
+                exerciseDialog.dismiss();
+                break;
             }
         }
     }
