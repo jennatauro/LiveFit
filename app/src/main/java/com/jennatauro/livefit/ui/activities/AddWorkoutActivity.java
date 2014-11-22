@@ -54,6 +54,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         getSupportActionBar().setHomeButtonEnabled(true);
 
         findViewById(R.id.create_workout_button).setOnClickListener(this);
+        findViewById(R.id.add_exercise_button).setOnClickListener(this);
 
         displayExercises();
     }
@@ -84,6 +85,9 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
                 mDbHelper.createOrUpdateWorkoutWithExercises(workout);
                 finish();
+            }
+            case (R.id.add_exercise_button): {
+                //exercise dialog
             }
         }
     }
