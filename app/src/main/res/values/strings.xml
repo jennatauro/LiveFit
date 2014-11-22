@@ -15,5 +15,6 @@
     <string name="workout_name">Workout Name</string>
     <string name="workout_description">Workout Description</string>
     <string name="create_workout">Create Workout</string>
+    <string name="exercises">Exercises</string>
 
 </resources>
