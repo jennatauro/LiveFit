@@ -119,4 +119,10 @@ public class FitnessActivity extends ActionBarActivity {
             finish();
         }
     }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
 }
