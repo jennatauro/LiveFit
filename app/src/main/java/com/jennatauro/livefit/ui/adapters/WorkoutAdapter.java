@@ -36,6 +36,7 @@ public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
 
         public WorkoutsViewHolder(View view, WorkoutAdapter adapter) {
             super(view, adapter);
+            workoutName = (TextView) view.findViewById(R.id.workout_name);
         }
     }
 
