@@ -11,5 +11,6 @@
     <string name="no_workouts_yet">You haven\'\ t added any workouts yet!</string>
     <string name="plus">+</string>
     <string name="workout_schedule">Workout Schedule</string>
+    <string name="add_workout">Add Workout</string>
 
 </resources>

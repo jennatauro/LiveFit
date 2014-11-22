@@ -22,6 +22,12 @@
             android:label="@string/fitness" >
 
         </activity>
+
+        <activity
+            android:name=".ui.activities.AddWorkoutActivity"
+            android:label="@string/add_workout" >
+
+        </activity>
     </application>
 
 </manifest>
