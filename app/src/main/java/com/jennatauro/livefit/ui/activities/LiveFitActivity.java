@@ -17,7 +17,7 @@ public class LiveFitActivity extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CalligraphyConfig.initDefault("fonts/ProximaNova-LightItalic.otf", R.attr.fontPath);
+        CalligraphyConfig.initDefault("fonts/ProximaNova-Light.otf", R.attr.fontPath);
     }
 
     @Override
