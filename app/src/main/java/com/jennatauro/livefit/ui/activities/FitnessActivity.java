@@ -1,10 +1,11 @@
 package com.jennatauro.livefit.ui.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +19,7 @@ import com.jennatauro.livefit.ui.fragments.LiveFitFragment;
 /**
  * Created by jennatauro on 2014-10-09.
  */
-public class FitnessActivity extends FragmentActivity {
+public class FitnessActivity extends ActionBarActivity {
 
     private String[] mFragmentTitles;
     private ListView mDrawerList;
@@ -27,24 +28,25 @@ public class FitnessActivity extends FragmentActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private LiveFitFragment.MenuOptions currentFragmentMenuOption;
     private String CURRENT_FRAGMENT = "current_fragment";
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitness);
 
+        mToolbar = (Toolbar) findViewById(R.id.fitness_activity_toolbar);
+        setSupportActionBar(mToolbar);
+
         mFragmentTitles = new String[]{Constants.NAV_TITLE_HOME, Constants.NAV_TITLE_SEE_ALL_WORKOUTS, Constants.NAV_TITLE_SCHEDULE};
         mDrawerList = (ListView) findViewById(R.id.fitness_activity_drawer_list);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.fitness_activity_drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_launcher, R.string.drawer_open, R.string.drawer_close) {
-
-            // drawer has settled in a completely closed state
+        mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 invalidateOptionsMenu();
             }
 
-            // drawer has settled in a completely opened state
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
@@ -54,8 +56,8 @@ public class FitnessActivity extends FragmentActivity {
         //Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mFragmentTitles));
