@@ -1,0 +1,8 @@
+Helpful commands
+
+Look at device Db
+./adb shell "run-as com.jennatauro.livefit chmod 666 /data/data/com.jennatauro.livefit/databases/livefitDb.db"
+
+./adb pull /data/data/com.jennatauro.livefit/databases/livefitDb.db
+
+sqlite3 livefitDb.db
