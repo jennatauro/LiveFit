@@ -25,4 +25,16 @@
         android:hint="@string/workout_description"
         android:layout_marginTop="5dp"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_workout"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/yellow_button_selector"
+        android:layout_marginTop="20dp"/>
+
 </LinearLayout>
