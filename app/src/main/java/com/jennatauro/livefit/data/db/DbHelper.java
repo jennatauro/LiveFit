@@ -97,9 +97,6 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
                 dbExerciseIds.add(dbExercise.getId());
             }
         }
-        // If this was an update, we might've deleted some work items. Delete anything that wasn't in the list of items.
-//        deleteOldExercisesForWorkout(dbExerciseIds, dbWorkout);
-//        storeWorkoutRelatedItems(sequence, dbWorkSequence);
         return dbWorkout;
     }
 
