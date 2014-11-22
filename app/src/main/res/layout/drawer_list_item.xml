@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:textSize="20dp"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     android:fontFamily="sans-serif-light"
-    android:background="?android:attr/activatedBackgroundIndicator"/>
+    android:background="@drawable/yellow_row_selector"
+    android:textColor="@color/black"/>
