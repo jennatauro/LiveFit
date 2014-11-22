@@ -8,6 +8,5 @@
     android:textSize="20dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:fontFamily="sans-serif-light"
     android:background="@drawable/yellow_row_selector"
     android:textColor="@color/black"/>

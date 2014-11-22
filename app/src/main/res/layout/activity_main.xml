@@ -34,7 +34,6 @@
             android:text="Fitness"
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
-            android:fontFamily="sans-serif-light"
             android:textColor="@color/black"/>
 
     </LinearLayout>
@@ -63,7 +62,6 @@
             android:text="Health"
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
-            android:fontFamily="sans-serif-light"
             android:textColor="@color/black"/>
 
     </LinearLayout>
@@ -91,7 +89,6 @@
             android:text="Goals"
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
-            android:fontFamily="sans-serif-light"
             android:textColor="@color/black"/>
 
     </LinearLayout>

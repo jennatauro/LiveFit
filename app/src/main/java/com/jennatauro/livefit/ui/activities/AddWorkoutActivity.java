@@ -12,7 +12,7 @@ import com.jennatauro.livefit.R;
 /**
  * Created by jennatauro on 2014-11-22.
  */
-public class AddWorkoutActivity extends ActionBarActivity {
+public class AddWorkoutActivity extends LiveFitActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

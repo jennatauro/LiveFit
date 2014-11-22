@@ -19,7 +19,7 @@ import com.jennatauro.livefit.ui.fragments.LiveFitFragment;
 /**
  * Created by jennatauro on 2014-10-09.
  */
-public class FitnessActivity extends ActionBarActivity {
+public class FitnessActivity extends LiveFitActivity {
 
     private String[] mFragmentTitles;
     private ListView mDrawerList;

@@ -9,7 +9,7 @@ import android.view.View;
 import com.jennatauro.livefit.R;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener{
+public class MainActivity extends LiveFitActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

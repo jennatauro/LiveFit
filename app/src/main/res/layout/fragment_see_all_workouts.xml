@@ -17,8 +17,7 @@
             android:textSize="30sp"
             android:textColor="@color/black"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:fontFamily="sans-serif-light"/>
+            android:gravity="center"/>
 
     </LinearLayout>
 
