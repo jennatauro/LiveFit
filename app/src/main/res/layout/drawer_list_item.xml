@@ -9,4 +9,5 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:background="@drawable/yellow_row_selector"
-    android:textColor="@color/black"/>
+    android:textColor="@color/black"
+    android:paddingLeft="8dp"/>
