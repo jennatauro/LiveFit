@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.ui.activities.AddWorkoutActivity;
 
+
 /**
  * Created by jennatauro on 2014-10-09.
  */
