@@ -25,15 +25,17 @@
             android:id="@+id/see_exercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/edit_exercise"
-            android:layout_marginRight="5dp"/>
+            android:layout_toLeftOf="@+id/delete_exercise"
+            android:src="@drawable/yellow_eye_selector"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"/>
 
-        <ImageView
-            android:id="@id/edit_exercise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/delete_exercise"
-            android:layout_marginRight="5dp"/>
+        <!--<ImageView-->
+            <!--android:id="@id/edit_exercise"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toRightOf="@+id/delete_exercise"-->
+            <!--android:layout_marginRight="5dp"/>-->
 
         <ImageView
             android:id="@id/delete_exercise"
