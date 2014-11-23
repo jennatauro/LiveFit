@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,13 +21,15 @@
 
         <activity
             android:name=".ui.activities.FitnessActivity"
-            android:label="@string/fitness" >
+            android:label="@string/fitness"
+            android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".ui.activities.AddWorkoutActivity"
-            android:label="@string/add_workout" >
+            android:label="@string/add_workout"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>
