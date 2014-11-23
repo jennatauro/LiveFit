@@ -1,18 +1,23 @@
 package com.jennatauro.livefit.ui.activities;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.SeeExerciseEvent;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
 import com.jennatauro.livefit.ui.fragments.SeeAllWorkoutsFragment;
+import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,6 +42,8 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
     Toolbar mToolbar;
 
     Workout mWorkout;
+
+    private Dialog seeExerciseDialog;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -80,6 +87,26 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe
+    public void seeExercise(SeeExerciseEvent e){
+        Exercise exercise = e.getExerciseToSee();
+
+        seeExerciseDialog = new Dialog(this);
+        seeExerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        seeExerciseDialog.setContentView(R.layout.dialog_see_exercise);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(seeExerciseDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        seeExerciseDialog.show();
+        seeExerciseDialog.getWindow().setAttributes(lp);
+
+        ((TextView) seeExerciseDialog.findViewById(R.id.exercise_name)).setText(exercise.getTitle());
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_description)).setText(exercise.getDescription());
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_weight)).setText(exercise.getWeight() + "");
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_reps)).setText(exercise.getReps() + "");
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_seconds)).setText(exercise.getSeconds() + "");
     }
 
 }

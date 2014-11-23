@@ -29,7 +29,7 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
     @Override
     public ExercisesViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_create_exercise, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_exercise, viewGroup, false);
         ExercisesViewHolder viewHolder = new ExercisesViewHolder(view, this);
 
         ButterKnife.inject(this, view);
@@ -47,8 +47,6 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
             Exercise exercise = items.get(position);
             exercisesViewHolder.exerciseName.setText(exercise.getTitle());
             exercisesViewHolder.seeExercise.setTag(position);
-            exercisesViewHolder.editExercise.setTag(position);
-            exercisesViewHolder.deleteExercise.setTag(position);
         }
     }
 
@@ -59,32 +57,14 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
         bus.post(new SeeExerciseEvent(exercise));
     }
 
-    @OnClick(R.id.edit_exercise)
-    void editExercise(View v) {
-        Integer index = (Integer) v.getTag();
-        Exercise exercise = items.get(index);
-        bus.post(new EditExerciseEvent(exercise, index));
-    }
-
-    @OnClick(R.id.delete_exercise)
-    void deleteExercise(View v) {
-        Integer index = (Integer) v.getTag();
-        Exercise exercise = items.get(index);
-        bus.post(new ExerciseDeletedEvent(exercise));
-    }
-
     public static class ExercisesViewHolder extends RecyclerViewBaseHolder {
         TextView exerciseName;
         View seeExercise;
-        View editExercise;
-        View deleteExercise;
 
         public ExercisesViewHolder(View view, ExerciseAdapter adapter) {
             super(view, adapter);
             exerciseName = (TextView) view.findViewById(R.id.exercise_name);
             seeExercise = view.findViewById(R.id.see_exercise);
-            editExercise = view.findViewById(R.id.edit_exercise);
-            deleteExercise = view.findViewById(R.id.delete_exercise);
         }
     }
 
