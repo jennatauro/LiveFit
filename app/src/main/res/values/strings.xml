@@ -23,5 +23,6 @@
     <string name="exercise_weight">Weight</string>
     <string name="exercise_reps">Reps</string>
     <string name="exercise_seconds">Time (Seconds)</string>
+    <string name="edit_exercise">Edit Exercise</string>
 
 </resources>

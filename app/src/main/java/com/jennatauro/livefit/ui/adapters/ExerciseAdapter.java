@@ -1,15 +1,22 @@
 package com.jennatauro.livefit.ui.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import android.app.Dialog;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Exercise;
+import com.jennatauro.livefit.eventBus.events.EditExerciseEvent;
 import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
+import com.jennatauro.livefit.eventBus.events.SeeExerciseEvent;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -31,6 +38,8 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_exercise, viewGroup, false);
         ExercisesViewHolder viewHolder = new ExercisesViewHolder(view, this);
         view.findViewById(R.id.delete_exercise).setTag(items.get(i));
+        view.findViewById(R.id.edit_exercise).setTag(items.get(i));
+        view.findViewById(R.id.see_exercise).setTag(items.get(i));
 
         ButterKnife.inject(this, view);
 
@@ -47,6 +56,18 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
             Exercise exercise = items.get(position);
             exercisesViewHolder.exerciseName.setText(exercise.getTitle());
         }
+    }
+
+    @OnClick(R.id.see_exercise)
+    void seeExercise(View v) {
+        Exercise exercise = (Exercise) v.getTag();
+        bus.post(new SeeExerciseEvent(exercise));
+    }
+
+    @OnClick(R.id.edit_exercise)
+    void editExercise(View v) {
+        Exercise exercise = (Exercise) v.getTag();
+        bus.post(new EditExerciseEvent(exercise));
     }
 
     @OnClick(R.id.delete_exercise)

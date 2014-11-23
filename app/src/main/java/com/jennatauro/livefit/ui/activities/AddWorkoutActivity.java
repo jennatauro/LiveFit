@@ -17,7 +17,9 @@ import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.EditExerciseEvent;
 import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
+import com.jennatauro.livefit.eventBus.events.SeeExerciseEvent;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
 import com.squareup.otto.Subscribe;
 
@@ -26,7 +28,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -60,7 +61,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     private EditText exerciseTimeEditText;
     private List<Exercise> mExercises = new ArrayList<Exercise>();
 
-    private Dialog exerciseDialog;
+    private Dialog createExerciseDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +113,22 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     }
 
     @Subscribe
+    public void seeExercise(SeeExerciseEvent e){
+        Exercise exercise = e.getExerciseToSee();
+    }
+
+    @Subscribe
+    public void editExercise(EditExerciseEvent e){
+        Exercise exercise = e.getExerciseToEdit();
+    }
+
+    @Subscribe
     public void exerciseDeleted(ExerciseDeletedEvent e){
         Exercise exercise = e.getDeletedExercise();
         mExercises.remove(exercise);
         displayExercises();
     }
+
 
     @Override
     public void onClick(View v) {
@@ -134,21 +146,21 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                exerciseDialog = new Dialog(this);
-                exerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                exerciseDialog.setContentView(R.layout.dialog_exercise);
+                createExerciseDialog = new Dialog(this);
+                createExerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                createExerciseDialog.setContentView(R.layout.dialog_create_exercise);
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                lp.copyFrom(exerciseDialog.getWindow().getAttributes());
+                lp.copyFrom(createExerciseDialog.getWindow().getAttributes());
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                exerciseDialog.show();
-                exerciseDialog.getWindow().setAttributes(lp);
+                createExerciseDialog.show();
+                createExerciseDialog.getWindow().setAttributes(lp);
 
-                exerciseDialog.findViewById(R.id.create_exercise_button).setOnClickListener(this);
-                exerciseNameEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_name);
-                exerciseDescriptionEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_description);
-                exerciseWeightEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_weight);
-                exerciseRepsEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_reps);
-                exerciseTimeEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_seconds);
+                createExerciseDialog.findViewById(R.id.create_exercise_button).setOnClickListener(this);
+                exerciseNameEditText = (EditText) createExerciseDialog.findViewById(R.id.dialog_exercise_name);
+                exerciseDescriptionEditText = (EditText) createExerciseDialog.findViewById(R.id.dialog_exercise_description);
+                exerciseWeightEditText = (EditText) createExerciseDialog.findViewById(R.id.dialog_exercise_weight);
+                exerciseRepsEditText = (EditText) createExerciseDialog.findViewById(R.id.dialog_exercise_reps);
+                exerciseTimeEditText = (EditText) createExerciseDialog.findViewById(R.id.dialog_exercise_seconds);
                 break;
             }
             case (R.id.create_exercise_button): {
@@ -166,7 +178,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 imm.hideSoftInputFromWindow(exerciseWeightEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseRepsEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseTimeEditText.getWindowToken(), 0);
-                exerciseDialog.dismiss();
+                createExerciseDialog.dismiss();
 
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
