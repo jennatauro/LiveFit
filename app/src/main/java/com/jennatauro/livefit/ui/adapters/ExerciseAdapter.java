@@ -11,7 +11,10 @@ import com.jennatauro.livefit.data.models.Exercise;
 /**
  * Created by jennatauro on 2014-11-22.
  */
-public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
+public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> implements View.OnClickListener{
+
+    int currentItem;
+
     @Override
     public ExercisesViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
@@ -30,12 +33,24 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case (R.id.delete_exercise): {
+                Exercise exercise = (Exercise) v.getTag();
+                items.remove(exercise);
+            }
+        }
+    }
+
     public static class ExercisesViewHolder extends RecyclerViewBaseHolder {
         TextView exerciseName;
 
         public ExercisesViewHolder(View view, ExerciseAdapter adapter) {
             super(view, adapter);
             exerciseName = (TextView) view.findViewById(R.id.exercise_name);
+
+            view.findViewById(R.id.delete_exercise).setOnClickListener(this);
         }
     }
 
