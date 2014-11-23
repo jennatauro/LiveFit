@@ -43,6 +43,7 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_see_all_workouts, container, false);
+        ButterKnife.inject(this, rootView);
         mViewHolder = new WorkoutsViewHolder(rootView);
 
         mDbHelper = new DbHelper(getActivity());
