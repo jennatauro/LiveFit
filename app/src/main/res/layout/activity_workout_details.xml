@@ -15,12 +15,21 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/workout_description"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:padding="5dp" />
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/workout_description"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -8,6 +8,8 @@ import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.ui.fragments.SeeAllWorkoutsFragment;
 
+import java.sql.SQLException;
+
 import javax.inject.Inject;
 
 import butterknife.InjectView;
@@ -30,10 +32,14 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
 
         int workoutId = getIntent().getIntExtra(SeeAllWorkoutsFragment.WORKOUT_ID, 0);
 
-        Workout workout = mDbHelper.getWorkoutForId(workoutId);
-
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("HEYYYYYY");
+        try {
+            Workout workout = mDbHelper.getWorkoutForId(workoutId);
+            getSupportActionBar().setTitle(workout.getTitle());
+        } catch (SQLException e) {
+            getSupportActionBar().setTitle(getString(R.string.app_name));
+        }
+
     }
 
 }
