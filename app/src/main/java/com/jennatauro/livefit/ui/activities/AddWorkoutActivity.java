@@ -101,6 +101,9 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 finish();
             }
             case (R.id.add_exercise_button): {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
                 exerciseDialog = new Dialog(this);
                 exerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 exerciseDialog.setContentView(R.layout.dialog_exercise);
@@ -128,8 +131,14 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 mExercises.add(exercise);
                 displayExercises();
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseWeightEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseRepsEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseTimeEditText.getWindowToken(), 0);
                 exerciseDialog.dismiss();
+
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                 break;
             }
