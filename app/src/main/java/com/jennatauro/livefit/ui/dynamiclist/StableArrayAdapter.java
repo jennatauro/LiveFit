@@ -7,17 +7,28 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Exercise;
+import com.jennatauro.livefit.eventBus.events.EditExerciseEvent;
+import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
+import com.jennatauro.livefit.eventBus.events.SeeExerciseEvent;
+import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
+
 /**
  * Created by jennatauro on 2014-11-23.
  */
-public class StableArrayAdapter extends ArrayAdapter<Exercise> {
+public class StableArrayAdapter extends ArrayAdapter<Exercise> implements View.OnClickListener{
+
+    @Inject
+    Bus bus;
 
     final int INVALID_ID = -1;
 
@@ -30,6 +41,9 @@ public class StableArrayAdapter extends ArrayAdapter<Exercise> {
         for (int i = 0; i < objects.size(); ++i) {
             mIdMap.put(objects.get(i), i);
         }
+
+        LivefitApplication app = LivefitApplication.getApplication();
+        app.inject(this);
     }
 
     @Override
@@ -50,6 +64,14 @@ public class StableArrayAdapter extends ArrayAdapter<Exercise> {
     private void setRowView(final int position, final View convertView) {
         Exercise item = getItem(position);
         ((TextView) convertView.findViewById(R.id.exercise_name)).setText(item.getTitle());
+
+        convertView.findViewById(R.id.delete_exercise).setOnClickListener(this);
+        convertView.findViewById(R.id.edit_exercise).setOnClickListener(this);
+        convertView.findViewById(R.id.see_exercise).setOnClickListener(this);
+
+        convertView.findViewById(R.id.delete_exercise).setTag(position);
+        convertView.findViewById(R.id.edit_exercise).setTag(position);
+        convertView.findViewById(R.id.see_exercise).setTag(position);
     }
 
     @Override
@@ -98,5 +120,29 @@ public class StableArrayAdapter extends ArrayAdapter<Exercise> {
             mIdMap.put(objects.get(i), i);
         }
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case(R.id.delete_exercise): {
+                Integer index = (Integer) v.getTag();
+                Exercise exercise = objects.get(index);
+                bus.post(new ExerciseDeletedEvent(exercise));
+                break;
+            }
+            case(R.id.edit_exercise): {
+                Integer index = (Integer) v.getTag();
+                Exercise exercise = objects.get(index);
+                bus.post(new EditExerciseEvent(exercise, index));
+                break;
+            }
+            case(R.id.see_exercise): {
+                Integer index = (Integer) v.getTag();
+                Exercise exercise = objects.get(index);
+                bus.post(new SeeExerciseEvent(exercise));
+                break;
+            }
+        }
     }
 }
