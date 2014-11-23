@@ -10,6 +10,7 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -24,8 +25,11 @@ public class LiveFitActivity extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.inject(this);
+
         LivefitApplication app = LivefitApplication.getApplication();
         app.inject(this);
+
     }
 
     protected void onResume() {

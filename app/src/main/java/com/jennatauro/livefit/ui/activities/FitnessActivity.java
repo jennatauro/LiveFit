@@ -15,33 +15,36 @@ import com.jennatauro.livefit.Constants;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.ui.fragments.LiveFitFragment;
 
+import butterknife.InjectView;
+
 /**
  * Created by jennatauro on 2014-10-09.
  */
 public class FitnessActivity extends LiveFitActivity {
 
     private String[] mFragmentTitles;
-    private ListView mDrawerList;
-    private DrawerLayout mDrawerLayout;
-
     private ActionBarDrawerToggle mDrawerToggle;
     private LiveFitFragment.MenuOptions currentFragmentMenuOption;
     private String CURRENT_FRAGMENT = "current_fragment";
     private CharSequence mTitle;
 
-    private Toolbar mToolbar;
+    @InjectView(R.id.fitness_activity_toolbar)
+    Toolbar mToolbar;
+
+    @InjectView(R.id.fitness_activity_drawer_list)
+    ListView mDrawerList;
+
+    @InjectView(R.id.fitness_activity_drawer_layout)
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitness);
+        super.onCreate(savedInstanceState);
 
-        mToolbar = (Toolbar) findViewById(R.id.fitness_activity_toolbar);
         setSupportActionBar(mToolbar);
 
         mFragmentTitles = new String[]{Constants.NAV_TITLE_HOME, Constants.NAV_TITLE_SEE_ALL_WORKOUTS, Constants.NAV_TITLE_SCHEDULE};
-        mDrawerList = (ListView) findViewById(R.id.fitness_activity_drawer_list);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.fitness_activity_drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);

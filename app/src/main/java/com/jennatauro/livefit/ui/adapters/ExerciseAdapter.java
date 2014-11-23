@@ -12,15 +12,15 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import butterknife.OnClick;
+
 /**
  * Created by jennatauro on 2014-11-22.
  */
-public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> implements View.OnClickListener{
+public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
 
     @Inject
     Bus bus;
-
-    int currentItem;
 
     @Override
     public ExercisesViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -40,14 +40,10 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> implements Vi
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case (R.id.delete_exercise): {
-                Exercise exercise = (Exercise) v.getTag();
-                bus.post(new ExerciseDeletedEvent(exercise));
-            }
-        }
+    @OnClick(R.id.delete_exercise)
+    void deleteExercise(View v) {
+        Exercise exercise = (Exercise) v.getTag();
+        bus.post(new ExerciseDeletedEvent(exercise));
     }
 
     public static class ExercisesViewHolder extends RecyclerViewBaseHolder {

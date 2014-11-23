@@ -2,14 +2,21 @@ package com.jennatauro.livefit.ui.fragments;
 
 import android.support.v4.app.Fragment;
 
+import com.squareup.otto.Bus;
+
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 /**
  * Created by jennatauro on 2014-10-09.
  */
 public abstract class LiveFitFragment extends Fragment {
+
+    @Inject
+    Bus bus;
 
     public enum MenuOptions {
         HOME(0), SEEALLWORKOUTS(1), SCHEDULE(2);
@@ -46,4 +53,16 @@ public abstract class LiveFitFragment extends Fragment {
     }
 
     public abstract String getTitle();
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
+    }
 }

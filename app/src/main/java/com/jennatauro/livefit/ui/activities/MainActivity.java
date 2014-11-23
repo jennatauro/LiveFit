@@ -8,28 +8,28 @@ import android.view.View;
 
 import com.jennatauro.livefit.R;
 
+import butterknife.InjectView;
+import butterknife.OnClick;
 
-public class MainActivity extends LiveFitActivity implements View.OnClickListener{
+
+public class MainActivity extends LiveFitActivity{
+
+    @InjectView(R.id.main_activity_toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
 
-        findViewById(R.id.ll_fitness).setOnClickListener(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
-
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
     }
 
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.ll_fitness:
-                Intent intent = new Intent(this, FitnessActivity.class);
-                startActivity(intent);
-                break;
-        }
+    @OnClick(R.id.ll_fitness)
+    void fitness() {
+        Intent intent = new Intent(this, FitnessActivity.class);
+        startActivity(intent);
     }
+
 }

@@ -22,12 +22,16 @@ import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by jennatauro on 2014-11-22.
  */
-public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickListener{
+public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickListener {
 
     @InjectView(R.id.activity_add_workout_workout_name)
     EditText workoutNameEditText;
@@ -35,8 +39,15 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @InjectView(R.id.activity_add_workout_workout_description)
     EditText workoutDescriptionEditText;
 
-    private DbHelper mDbHelper;
-    private ExerciseAdapter mAdapter;
+    @Inject
+    DbHelper mDbHelper;
+
+    @Inject
+    ExerciseAdapter mAdapter;
+
+    @InjectView(R.id.add_workout_activity_toolbar)
+    Toolbar mToolbar;
+
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -51,23 +62,16 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout);
+        super.onCreate(savedInstanceState);
 
-        mAdapter = new ExerciseAdapter();
-        mDbHelper = new DbHelper(this);
-        mRecyclerView = (RecyclerView) findViewById(R.id.exercises_recyclerview);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.exercises_recyclerview);
+
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.add_workout_activity_toolbar);
-
-//        workoutNameEditText = (EditText) findViewById(R.id.activity_add_workout_workout_name);
-//        workoutDescriptionEditText = (EditText) findViewById(R.id.activity_add_workout_workout_description);
-
-
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.add_workout));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -94,9 +98,20 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.create_workout_button)
+    void createWorkout() {
+        Workout workout = new Workout();
+        workout.setTitle(workoutNameEditText.getText().toString());
+        workout.setDescription(workoutDescriptionEditText.getText().toString());
+        workout.setExercises(mExercises);
+
+        mDbHelper.createOrUpdateWorkoutWithExercises(workout);
+        finish();
+    }
+
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+        switch (v.getId()) {
             case (R.id.create_workout_button): {
                 Workout workout = new Workout();
                 workout.setTitle(workoutNameEditText.getText().toString());
@@ -107,7 +122,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 finish();
             }
             case (R.id.add_exercise_button): {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                 exerciseDialog = new Dialog(this);
@@ -136,7 +151,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 mExercises.add(exercise);
                 displayExercises();
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseWeightEditText.getWindowToken(), 0);
