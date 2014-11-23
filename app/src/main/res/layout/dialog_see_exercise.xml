@@ -1,7 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_grey_background">
+
+    <TextView
+        android:id="@+id/exercise_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_blue"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/exercise_description"
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/dialog_exercise_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hint_text_grey"
+        android:textSize="25sp"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/exercise_weight"
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/dialog_exercise_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hint_text_grey"
+        android:textSize="25sp"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/exercise_reps"
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/dialog_exercise_reps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hint_text_grey"
+        android:textSize="25sp"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/exercise_seconds"
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/dialog_exercise_seconds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hint_text_grey"
+        android:textSize="25sp"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"/>
+
 
 </LinearLayout>

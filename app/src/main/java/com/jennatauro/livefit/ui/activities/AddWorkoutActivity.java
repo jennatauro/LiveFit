@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
@@ -118,6 +119,21 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @Subscribe
     public void seeExercise(SeeExerciseEvent e){
         Exercise exercise = e.getExerciseToSee();
+
+        seeExerciseDialog = new Dialog(this);
+        seeExerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        seeExerciseDialog.setContentView(R.layout.dialog_see_exercise);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(seeExerciseDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        seeExerciseDialog.show();
+        seeExerciseDialog.getWindow().setAttributes(lp);
+
+        ((TextView) seeExerciseDialog.findViewById(R.id.exercise_name)).setText(exercise.getTitle());
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_description)).setText(exercise.getDescription());
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_weight)).setText(exercise.getWeight() + "");
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_reps)).setText(exercise.getReps() + "");
+        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_seconds)).setText(exercise.getSeconds() + "");
     }
 
     @Subscribe
