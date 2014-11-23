@@ -38,7 +38,7 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_exercise, viewGroup, false);
         ExercisesViewHolder viewHolder = new ExercisesViewHolder(view, this);
         view.findViewById(R.id.delete_exercise).setTag(items.get(i));
-        view.findViewById(R.id.edit_exercise).setTag(items.get(i));
+        view.findViewById(R.id.edit_exercise).setTag(i);
         view.findViewById(R.id.see_exercise).setTag(items.get(i));
 
         ButterKnife.inject(this, view);
@@ -66,8 +66,9 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
 
     @OnClick(R.id.edit_exercise)
     void editExercise(View v) {
-        Exercise exercise = (Exercise) v.getTag();
-        bus.post(new EditExerciseEvent(exercise, items.indexOf(exercise)));
+        Integer index = (Integer) v.getTag();
+        Exercise exercise = items.get(index);
+        bus.post(new EditExerciseEvent(exercise, index));
     }
 
     @OnClick(R.id.delete_exercise)

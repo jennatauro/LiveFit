@@ -64,6 +64,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     private Dialog createExerciseDialog;
     private Dialog editExerciseDialog;
     private Dialog seeExerciseDialog;
+    private int editIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @Subscribe
     public void editExercise(EditExerciseEvent e){
         Exercise exercise = e.getExerciseToEdit();
+        editIndex = e.getIndex();
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -206,6 +208,27 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 imm.hideSoftInputFromWindow(exerciseRepsEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseTimeEditText.getWindowToken(), 0);
                 createExerciseDialog.dismiss();
+
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                break;
+            }
+            case (R.id.edit_exercise_button): {
+                Exercise exercise = new Exercise();
+                exercise.setTitle(exerciseNameEditText.getText().toString());
+                exercise.setDescription(exerciseDescriptionEditText.getText().toString());
+                exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
+                exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
+                exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                mExercises.set(editIndex, exercise);
+                displayExercises();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseWeightEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseRepsEditText.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(exerciseTimeEditText.getWindowToken(), 0);
+                editExerciseDialog.dismiss();
 
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
