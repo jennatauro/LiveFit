@@ -22,13 +22,19 @@ import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.InjectView;
+
 /**
  * Created by jennatauro on 2014-11-22.
  */
 public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickListener{
 
-    private EditText workoutNameEditText;
-    private EditText workoutDescriptionEditText;
+    @InjectView(R.id.activity_add_workout_workout_name)
+    EditText workoutNameEditText;
+
+    @InjectView(R.id.activity_add_workout_workout_description)
+    EditText workoutDescriptionEditText;
+
     private DbHelper mDbHelper;
     private ExerciseAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -57,8 +63,8 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.add_workout_activity_toolbar);
 
-        workoutNameEditText = (EditText) findViewById(R.id.activity_add_workout_workout_name);
-        workoutDescriptionEditText = (EditText) findViewById(R.id.activity_add_workout_workout_description);
+//        workoutNameEditText = (EditText) findViewById(R.id.activity_add_workout_workout_name);
+//        workoutDescriptionEditText = (EditText) findViewById(R.id.activity_add_workout_workout_description);
 
 
         setSupportActionBar(toolbar);
