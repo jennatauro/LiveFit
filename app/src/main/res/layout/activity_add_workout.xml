@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/main_grey_background"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    tools:context=".ListViewAnimations">
 
     <android.support.v7.widget.Toolbar
         style="@style/ToolbarStyle"
@@ -71,14 +72,11 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/exercises_recyclerview"
-            android:scrollbars="vertical"
+        <com.jennatauro.livefit.ui.dynamiclist.DynamicListView
+            android:id="@+id/listview"
+            android:background="#0000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

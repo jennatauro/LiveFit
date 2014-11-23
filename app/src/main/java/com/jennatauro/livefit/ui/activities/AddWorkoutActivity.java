@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
@@ -22,6 +23,9 @@ import com.jennatauro.livefit.eventBus.events.EditExerciseEvent;
 import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
 import com.jennatauro.livefit.eventBus.events.SeeExerciseEvent;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
+import com.jennatauro.livefit.ui.dynamiclist.Cheeses;
+import com.jennatauro.livefit.ui.dynamiclist.DynamicListView;
+import com.jennatauro.livefit.ui.dynamiclist.StableArrayAdapter;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -52,9 +56,6 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @InjectView(R.id.add_workout_activity_toolbar)
     Toolbar mToolbar;
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     private EditText exerciseNameEditText;
     private EditText exerciseDescriptionEditText;
     private EditText exerciseWeightEditText;
@@ -72,11 +73,18 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         setContentView(R.layout.activity_add_workout);
         super.onCreate(savedInstanceState);
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.exercises_recyclerview);
+        ArrayList<String> mCheeseList = new ArrayList<String>();
+        for (int i = 0; i < Cheeses.sCheeseStrings.length; ++i) {
+            mCheeseList.add(Cheeses.sCheeseStrings[i]);
+        }
 
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.text_view, mCheeseList);
+        DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
+
+        listView.setCheeseList(mCheeseList);
+        listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.add_workout));
@@ -86,7 +94,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         findViewById(R.id.create_workout_button).setOnClickListener(this);
         findViewById(R.id.add_exercise_button).setOnClickListener(this);
 
-        displayExercises();
+        //displayExercises();
     }
 
     @Override
