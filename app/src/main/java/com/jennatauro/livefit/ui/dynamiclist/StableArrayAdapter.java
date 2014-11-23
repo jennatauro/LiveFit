@@ -90,4 +90,13 @@ public class StableArrayAdapter extends ArrayAdapter<Exercise> {
     public boolean hasStableIds() {
         return true;
     }
+
+    public void replace(ArrayList<Exercise> exercises) {
+        this.objects = exercises;
+        mIdMap.clear();
+        for (int i = 0; i < objects.size(); ++i) {
+            mIdMap.put(objects.get(i), i);
+        }
+        notifyDataSetChanged();
+    }
 }

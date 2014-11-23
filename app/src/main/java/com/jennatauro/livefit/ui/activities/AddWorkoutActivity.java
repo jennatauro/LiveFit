@@ -3,8 +3,6 @@ package com.jennatauro.livefit.ui.activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,8 +20,6 @@ import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.eventBus.events.EditExerciseEvent;
 import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
 import com.jennatauro.livefit.eventBus.events.SeeExerciseEvent;
-import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
-import com.jennatauro.livefit.ui.dynamiclist.Cheeses;
 import com.jennatauro.livefit.ui.dynamiclist.DynamicListView;
 import com.jennatauro.livefit.ui.dynamiclist.StableArrayAdapter;
 import com.squareup.otto.Subscribe;
@@ -58,7 +54,9 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     private EditText exerciseWeightEditText;
     private EditText exerciseRepsEditText;
     private EditText exerciseTimeEditText;
-    private List<Exercise> mExercises = new ArrayList<Exercise>();
+    private ArrayList<Exercise> mExercises = new ArrayList<Exercise>();
+    private StableArrayAdapter mAdapter;
+    private DynamicListView mListView;
 
     private Dialog createExerciseDialog;
     private Dialog editExerciseDialog;
@@ -70,19 +68,12 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         setContentView(R.layout.activity_add_workout);
         super.onCreate(savedInstanceState);
 
-        ArrayList<Exercise> mCheeseList = new ArrayList<Exercise>();
-        for (int i = 0; i < Cheeses.sCheeseStrings.length; ++i) {
-            Exercise exercise = new Exercise();
-            exercise.setTitle(Cheeses.sCheeseStrings[i]);
-            mCheeseList.add(exercise);
-        }
+        mAdapter = new StableArrayAdapter(this, R.layout.list_item_exercise, mExercises);
+        mListView = (DynamicListView) findViewById(R.id.listview);
 
-        StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item_exercise, mCheeseList);
-        DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
-
-        listView.setCheeseList(mCheeseList);
-        listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setExerciseList(mExercises);
+        mListView.setAdapter(mAdapter);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 
         setSupportActionBar(mToolbar);
@@ -93,18 +84,19 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         findViewById(R.id.create_workout_button).setOnClickListener(this);
         findViewById(R.id.add_exercise_button).setOnClickListener(this);
 
-        //displayExercises();
+        displayExercises();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //displayExercises();
+        displayExercises();
     }
 
-    //private void displayExercises() {
-//        mAdapter.replace(mExercises);
-//    }
+    private void displayExercises() {
+        mAdapter.replace(mExercises);
+        mListView.setExerciseList(mExercises);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -178,7 +170,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     public void exerciseDeleted(ExerciseDeletedEvent e){
         Exercise exercise = e.getDeletedExercise();
         mExercises.remove(exercise);
-        //displayExercises();
+        displayExercises();
     }
 
 
@@ -223,7 +215,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
                 exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 mExercises.add(exercise);
-                //displayExercises();
+                displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
@@ -244,7 +236,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
                 exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 mExercises.set(editIndex, exercise);
-                //displayExercises();
+                displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
