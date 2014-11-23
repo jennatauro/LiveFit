@@ -67,7 +67,7 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
     @OnClick(R.id.edit_exercise)
     void editExercise(View v) {
         Exercise exercise = (Exercise) v.getTag();
-        bus.post(new EditExerciseEvent(exercise));
+        bus.post(new EditExerciseEvent(exercise, items.indexOf(exercise)));
     }
 
     @OnClick(R.id.delete_exercise)

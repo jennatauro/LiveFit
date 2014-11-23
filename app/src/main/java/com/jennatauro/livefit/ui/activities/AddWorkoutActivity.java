@@ -62,6 +62,8 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     private List<Exercise> mExercises = new ArrayList<Exercise>();
 
     private Dialog createExerciseDialog;
+    private Dialog editExerciseDialog;
+    private Dialog seeExerciseDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +122,31 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @Subscribe
     public void editExercise(EditExerciseEvent e){
         Exercise exercise = e.getExerciseToEdit();
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        editExerciseDialog = new Dialog(this);
+        editExerciseDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        editExerciseDialog.setContentView(R.layout.dialog_edit_exercise);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(editExerciseDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        editExerciseDialog.show();
+        editExerciseDialog.getWindow().setAttributes(lp);
+
+        editExerciseDialog.findViewById(R.id.edit_exercise_button).setOnClickListener(this);
+        exerciseNameEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_name);
+        exerciseDescriptionEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_description);
+        exerciseWeightEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_weight);
+        exerciseRepsEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_reps);
+        exerciseTimeEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_seconds);
+
+        exerciseNameEditText.setText(exercise.getTitle());
+        exerciseDescriptionEditText.setText(exercise.getDescription());
+        exerciseWeightEditText.setText(exercise.getWeight() + "");
+        exerciseRepsEditText.setText(exercise.getReps() + "");
+        exerciseTimeEditText.setText(exercise.getSeconds() + "");
     }
 
     @Subscribe

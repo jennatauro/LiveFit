@@ -7,12 +7,16 @@ import com.jennatauro.livefit.data.models.Exercise;
  */
 public class EditExerciseEvent {
     private Exercise exerciseToEdit;
+    private int index;
 
-    public EditExerciseEvent(Exercise exercise){
+    public EditExerciseEvent(Exercise exercise, int index){
         exerciseToEdit = exercise;
+        this.index = index;
     }
 
     public Exercise getExerciseToEdit(){
         return exerciseToEdit;
     }
+
+    public int getIndex() { return index; }
 }
