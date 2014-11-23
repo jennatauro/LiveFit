@@ -130,9 +130,30 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
         ((TextView) seeExerciseDialog.findViewById(R.id.exercise_name)).setText(exercise.getTitle());
         ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_description)).setText(exercise.getDescription());
-        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_weight)).setText(exercise.getWeight() + "");
-        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_reps)).setText(exercise.getReps() + "");
-        ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_seconds)).setText(exercise.getSeconds() + "");
+        if (exercise.getWeight() == 0) {
+            seeExerciseDialog.findViewById(R.id.title_weight).setVisibility(View.GONE);
+            seeExerciseDialog.findViewById(R.id.dialog_exercise_weight).setVisibility(View.GONE);
+        } else {
+            seeExerciseDialog.findViewById(R.id.title_weight).setVisibility(View.VISIBLE);
+            seeExerciseDialog.findViewById(R.id.dialog_exercise_weight).setVisibility(View.VISIBLE);
+            ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_weight)).setText(exercise.getWeight() + "");
+        }
+        if (exercise.getReps() == 0) {
+            seeExerciseDialog.findViewById(R.id.title_reps).setVisibility(View.GONE);
+            seeExerciseDialog.findViewById(R.id.dialog_exercise_reps).setVisibility(View.GONE);
+        } else {
+            seeExerciseDialog.findViewById(R.id.title_reps).setVisibility(View.VISIBLE);
+            seeExerciseDialog.findViewById(R.id.dialog_exercise_reps).setVisibility(View.VISIBLE);
+            ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_reps)).setText(exercise.getReps() + "");
+        }
+        if (exercise.getSeconds() == 0) {
+            seeExerciseDialog.findViewById(R.id.title_seconds).setVisibility(View.GONE);
+            seeExerciseDialog.findViewById(R.id.dialog_exercise_seconds).setVisibility(View.GONE);
+        } else {
+            seeExerciseDialog.findViewById(R.id.title_seconds).setVisibility(View.VISIBLE);
+            seeExerciseDialog.findViewById(R.id.dialog_exercise_seconds).setVisibility(View.VISIBLE);
+            ((TextView) seeExerciseDialog.findViewById(R.id.dialog_exercise_seconds)).setText(exercise.getSeconds() + "");
+        }
     }
 
     @Subscribe
@@ -159,11 +180,21 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         exerciseRepsEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_reps);
         exerciseTimeEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_seconds);
 
-        exerciseNameEditText.setText(exercise.getTitle());
-        exerciseDescriptionEditText.setText(exercise.getDescription());
-        exerciseWeightEditText.setText(exercise.getWeight() + "");
-        exerciseRepsEditText.setText(exercise.getReps() + "");
-        exerciseTimeEditText.setText(exercise.getSeconds() + "");
+        if (!exercise.getTitle().equals(getString(R.string.not_set))) {
+            exerciseNameEditText.setText(exercise.getTitle());
+        }
+        if (!exercise.getDescription().equals(getString(R.string.not_set))) {
+            exerciseDescriptionEditText.setText(exercise.getDescription());
+        }
+        if (exercise.getWeight() != 0) {
+            exerciseWeightEditText.setText(exercise.getWeight() + "");
+        }
+        if (exercise.getReps() != 0) {
+            exerciseRepsEditText.setText(exercise.getReps() + "");
+        }
+        if (exercise.getSeconds() != 0) {
+            exerciseTimeEditText.setText(exercise.getSeconds() + "");
+        }
     }
 
     @Subscribe
@@ -179,8 +210,16 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         switch (v.getId()) {
             case (R.id.create_workout_button): {
                 Workout workout = new Workout();
-                workout.setTitle(workoutNameEditText.getText().toString());
-                workout.setDescription(workoutDescriptionEditText.getText().toString());
+                if (workoutNameEditText.getText().toString().equals("")) {
+                    workout.setTitle(getString(R.string.not_set));
+                } else {
+                    workout.setTitle(workoutNameEditText.getText().toString());
+                }
+                if (workoutDescriptionEditText.getText().toString().equals("")) {
+                    workout.setDescription(getString(R.string.not_set));
+                } else {
+                    workout.setDescription(workoutDescriptionEditText.getText().toString());
+                }
                 workout.setExercises(mExercises);
 
                 mDbHelper.createOrUpdateWorkoutWithExercises(workout);

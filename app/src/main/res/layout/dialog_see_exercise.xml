@@ -34,6 +34,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
+        android:id="@+id/title_weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -53,6 +54,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
+        android:id="@+id/title_reps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -72,6 +74,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
+        android:id="@+id/title_seconds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
