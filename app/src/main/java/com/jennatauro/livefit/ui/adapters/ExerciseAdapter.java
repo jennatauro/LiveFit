@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
@@ -12,6 +13,7 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -27,6 +29,11 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_exercise, viewGroup, false);
         ExercisesViewHolder viewHolder = new ExercisesViewHolder(view, this);
+
+        ButterKnife.inject(this, view);
+
+        LivefitApplication app = LivefitApplication.getApplication();
+        app.inject(this);
 
         return viewHolder;
     }

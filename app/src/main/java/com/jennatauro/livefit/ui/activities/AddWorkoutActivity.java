@@ -17,7 +17,9 @@ import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +109,13 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
         mDbHelper.createOrUpdateWorkoutWithExercises(workout);
         finish();
+    }
+
+    @Subscribe
+    public void exerciseDeleted(ExerciseDeletedEvent e){
+        Exercise exercise = e.getDeletedExercise();
+        mExercises.remove(exercise);
+        displayExercises();
     }
 
     @Override
