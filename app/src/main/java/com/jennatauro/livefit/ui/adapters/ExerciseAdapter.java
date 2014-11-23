@@ -1,5 +1,6 @@
 package com.jennatauro.livefit.ui.adapters;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_exercise, viewGroup, false);
         ExercisesViewHolder viewHolder = new ExercisesViewHolder(view, this);
+        view.findViewById(R.id.delete_exercise).setTag(items.get(i));
 
         ButterKnife.inject(this, view);
 
@@ -59,8 +61,6 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
         public ExercisesViewHolder(View view, ExerciseAdapter adapter) {
             super(view, adapter);
             exerciseName = (TextView) view.findViewById(R.id.exercise_name);
-
-            view.findViewById(R.id.delete_exercise).setOnClickListener(this);
         }
     }
 
