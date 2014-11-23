@@ -15,8 +15,12 @@ import android.widget.TextView;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.ui.activities.AddWorkoutActivity;
+import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +37,19 @@ import butterknife.OnClick;
  */
 public class SeeAllWorkoutsFragment extends LiveFitFragment {
 
+    public static final String WORKOUT_ID = "workout_id";
+
+    @Inject
+    Bus bus;
+
     @Inject
     WorkoutAdapter mAdapter;
 
     private DbHelper mDbHelper;
     private RecyclerView.LayoutManager mLayoutManager;
     private WorkoutsViewHolder mViewHolder;
+
+    private List<Workout> mWorkouts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,15 +76,15 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
     }
 
     private void loadWorkouts() {
-        List<Workout> allWorkouts = mDbHelper.getWorkouts();
-        if (allWorkouts == null || allWorkouts.size() == 0) {
+        mWorkouts = mDbHelper.getWorkouts();
+        if (mWorkouts == null || mWorkouts.size() == 0) {
             mViewHolder.noWorkoutsLayout.setVisibility(View.VISIBLE);
             mViewHolder.mRecyclerView.setVisibility(View.GONE);
             mAdapter.replace(new ArrayList<Workout>());
         } else {
             mViewHolder.noWorkoutsLayout.setVisibility(View.GONE);
             mViewHolder.mRecyclerView.setVisibility(View.VISIBLE);
-            mAdapter.replace(allWorkouts);
+            mAdapter.replace(mWorkouts);
         }
     }
 
@@ -100,6 +111,13 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
         WorkoutsViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
+    }
+
+    @Subscribe
+    public void workoutClicked(WorkoutClickedEvent e){
+        Intent intent = new Intent(getActivity(), WorkoutDetailsActivity.class);
+        intent.putExtra(WORKOUT_ID, e.getWorkoutId());
+        startActivity(intent);
     }
 
 }

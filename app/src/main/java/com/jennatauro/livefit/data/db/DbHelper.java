@@ -148,4 +148,8 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         List<DbExercise> dbExercises = DbExercise.getDao(this).queryForEq(DbExercise.WORKOUT_ID_FIELD_NAME, workout);
         return dbExercises;
     }
+
+    public Workout getWorkoutForId(int id){
+        return new Workout();
+    }
 }

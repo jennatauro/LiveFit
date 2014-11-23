@@ -1,22 +1,36 @@
 package com.jennatauro.livefit.ui.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
+import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
+import com.squareup.otto.Bus;
+
+import javax.inject.Inject;
 
 /**
  * Created by jennatauro on 2014-11-22.
  */
 public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
+
+    @Inject
+    Bus bus;
+
     @Override
     public WorkoutsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_workout, viewGroup, false);
         WorkoutsViewHolder viewHolder = new WorkoutsViewHolder(view, this);
+
+        LivefitApplication app = LivefitApplication.getApplication();
+        app.inject(this);
 
         return viewHolder;
     }
@@ -39,4 +53,9 @@ public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
         }
     }
 
+    @Override
+    public void onItemClick(RecyclerViewBaseHolder viewHolder) {
+        bus.post(new WorkoutClickedEvent(viewHolder.getPosition()));
+        super.onItemClick(viewHolder);
+    }
 }
