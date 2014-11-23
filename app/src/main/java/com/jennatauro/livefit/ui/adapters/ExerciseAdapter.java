@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Exercise;
+import com.jennatauro.livefit.eventBus.events.ExerciseDeletedEvent;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -44,8 +45,7 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> implements Vi
         switch (v.getId()){
             case (R.id.delete_exercise): {
                 Exercise exercise = (Exercise) v.getTag();
-                items.remove(exercise);
-                //post event
+                bus.post(new ExerciseDeletedEvent(exercise));
             }
         }
     }
