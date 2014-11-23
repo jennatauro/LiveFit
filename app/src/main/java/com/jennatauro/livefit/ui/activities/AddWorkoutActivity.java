@@ -1,6 +1,7 @@
 package com.jennatauro.livefit.ui.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jennatauro.livefit.R;
@@ -125,7 +127,10 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 mExercises.add(exercise);
                 displayExercises();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 exerciseDialog.dismiss();
+
                 break;
             }
         }
