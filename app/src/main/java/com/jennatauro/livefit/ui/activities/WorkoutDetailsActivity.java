@@ -2,6 +2,7 @@ package com.jennatauro.livefit.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
@@ -40,6 +41,15 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
             getSupportActionBar().setTitle(getString(R.string.app_name));
         }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
 }
