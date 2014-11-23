@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/white_to_yellow_selector">
 
     <TextView
         android:id="@+id/workout_name"
