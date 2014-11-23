@@ -24,5 +24,6 @@
     <string name="exercise_reps">Reps</string>
     <string name="exercise_seconds">Time (Seconds)</string>
     <string name="edit_exercise">Edit Exercise</string>
+    <string name="not_set">Not Set</string>
 
 </resources>

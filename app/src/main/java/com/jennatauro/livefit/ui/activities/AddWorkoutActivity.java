@@ -116,7 +116,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     }
 
     @Subscribe
-    public void seeExercise(SeeExerciseEvent e){
+    public void seeExercise(SeeExerciseEvent e) {
         Exercise exercise = e.getExerciseToSee();
 
         seeExerciseDialog = new Dialog(this);
@@ -136,7 +136,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     }
 
     @Subscribe
-    public void editExercise(EditExerciseEvent e){
+    public void editExercise(EditExerciseEvent e) {
         Exercise exercise = e.getExerciseToEdit();
         editIndex = e.getIndex();
 
@@ -167,7 +167,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     }
 
     @Subscribe
-    public void exerciseDeleted(ExerciseDeletedEvent e){
+    public void exerciseDeleted(ExerciseDeletedEvent e) {
         Exercise exercise = e.getDeletedExercise();
         mExercises.remove(exercise);
         displayExercises();
@@ -209,11 +209,31 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
             }
             case (R.id.create_exercise_button): {
                 Exercise exercise = new Exercise();
-                exercise.setTitle(exerciseNameEditText.getText().toString());
-                exercise.setDescription(exerciseDescriptionEditText.getText().toString());
-                exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
-                exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
-                exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                if (exerciseNameEditText.getText().toString().equals("")) {
+                    exercise.setTitle(getString(R.string.not_set));
+                } else {
+                    exercise.setTitle(exerciseNameEditText.getText().toString());
+                }
+                if (exerciseDescriptionEditText.getText().toString().equals("")) {
+                    exercise.setDescription(getString(R.string.not_set));
+                } else {
+                    exercise.setDescription(exerciseDescriptionEditText.getText().toString());
+                }
+                if (exerciseWeightEditText.getText().toString().equals("")) {
+                    exercise.setWeight(0);
+                } else {
+                    exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
+                }
+                if (exerciseRepsEditText.getText().toString().equals("")) {
+                    exercise.setReps(0);
+                } else {
+                    exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
+                }
+                if (exerciseTimeEditText.getText().toString().equals("")) {
+                    exercise.setSeconds(0);
+                } else {
+                    exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                }
                 mExercises.add(exercise);
                 displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -230,11 +250,31 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
             }
             case (R.id.edit_exercise_button): {
                 Exercise exercise = new Exercise();
-                exercise.setTitle(exerciseNameEditText.getText().toString());
-                exercise.setDescription(exerciseDescriptionEditText.getText().toString());
-                exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
-                exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
-                exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                if (exerciseNameEditText.getText().toString().equals("")) {
+                    exercise.setTitle(getString(R.string.not_set));
+                } else {
+                    exercise.setTitle(exerciseNameEditText.getText().toString());
+                }
+                if (exerciseDescriptionEditText.getText().toString().equals("")) {
+                    exercise.setDescription(getString(R.string.not_set));
+                } else {
+                    exercise.setDescription(exerciseDescriptionEditText.getText().toString());
+                }
+                if (exerciseWeightEditText.getText().toString().equals("")) {
+                    exercise.setWeight(0);
+                } else {
+                    exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
+                }
+                if (exerciseRepsEditText.getText().toString().equals("")) {
+                    exercise.setReps(0);
+                } else {
+                    exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
+                }
+                if (exerciseTimeEditText.getText().toString().equals("")) {
+                    exercise.setSeconds(0);
+                } else {
+                    exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                }
                 mExercises.set(editIndex, exercise);
                 displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
