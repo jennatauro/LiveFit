@@ -39,6 +39,7 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> implements Vi
             case (R.id.delete_exercise): {
                 Exercise exercise = (Exercise) v.getTag();
                 items.remove(exercise);
+                //post event
             }
         }
     }
