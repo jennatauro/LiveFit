@@ -22,6 +22,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.jennatauro.livefit.data.models.Exercise;
+
 import java.util.ArrayList;
 
 /**
@@ -33,7 +35,7 @@ public class DynamicListView extends ListView {
     private final int MOVE_DURATION = 150;
     private final int LINE_THICKNESS = 15;
 
-    public ArrayList<String> mCheeseList;
+    public ArrayList<Exercise> mCheeseList;
 
     private int mLastEventY = -1;
 
@@ -467,7 +469,7 @@ public class DynamicListView extends ListView {
         return false;
     }
 
-    public void setCheeseList(ArrayList<String> cheeseList) {
+    public void setCheeseList(ArrayList<Exercise> cheeseList) {
         mCheeseList = cheeseList;
     }
 

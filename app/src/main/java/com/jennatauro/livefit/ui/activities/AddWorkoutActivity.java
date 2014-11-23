@@ -50,9 +50,6 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @Inject
     DbHelper mDbHelper;
 
-    @Inject
-    ExerciseAdapter mAdapter;
-
     @InjectView(R.id.add_workout_activity_toolbar)
     Toolbar mToolbar;
 
@@ -73,12 +70,14 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         setContentView(R.layout.activity_add_workout);
         super.onCreate(savedInstanceState);
 
-        ArrayList<String> mCheeseList = new ArrayList<String>();
+        ArrayList<Exercise> mCheeseList = new ArrayList<Exercise>();
         for (int i = 0; i < Cheeses.sCheeseStrings.length; ++i) {
-            mCheeseList.add(Cheeses.sCheeseStrings[i]);
+            Exercise exercise = new Exercise();
+            exercise.setTitle(Cheeses.sCheeseStrings[i]);
+            mCheeseList.add(exercise);
         }
 
-        StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.text_view, mCheeseList);
+        StableArrayAdapter adapter = new StableArrayAdapter(this, R.layout.list_item_exercise, mCheeseList);
         DynamicListView listView = (DynamicListView) findViewById(R.id.listview);
 
         listView.setCheeseList(mCheeseList);
@@ -100,12 +99,12 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-        displayExercises();
+        //displayExercises();
     }
 
-    private void displayExercises() {
-        mAdapter.replace(mExercises);
-    }
+    //private void displayExercises() {
+//        mAdapter.replace(mExercises);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -179,7 +178,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     public void exerciseDeleted(ExerciseDeletedEvent e){
         Exercise exercise = e.getDeletedExercise();
         mExercises.remove(exercise);
-        displayExercises();
+        //displayExercises();
     }
 
 
@@ -224,7 +223,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
                 exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 mExercises.add(exercise);
-                displayExercises();
+                //displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
@@ -245,7 +244,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
                 exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 mExercises.set(editIndex, exercise);
-                displayExercises();
+                //displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);
                 imm.hideSoftInputFromWindow(exerciseDescriptionEditText.getWindowToken(), 0);
