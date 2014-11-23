@@ -93,6 +93,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 Workout workout = new Workout();
                 workout.setTitle(workoutNameEditText.getText().toString());
                 workout.setDescription(workoutDescriptionEditText.getText().toString());
+                workout.setExercises(mExercises);
 
                 mDbHelper.createOrUpdateWorkoutWithExercises(workout);
                 finish();
@@ -108,9 +109,22 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
                 exerciseDialog.getWindow().setAttributes(lp);
 
                 exerciseDialog.findViewById(R.id.create_exercise_button).setOnClickListener(this);
+                exerciseNameEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_name);
+                exerciseDescriptionEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_description);
+                exerciseWeightEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_weight);
+                exerciseRepsEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_reps);
+                exerciseTimeEditText = (EditText) exerciseDialog.findViewById(R.id.dialog_exercise_seconds);
                 break;
             }
             case (R.id.create_exercise_button): {
+                Exercise exercise = new Exercise();
+                exercise.setTitle(exerciseNameEditText.getText().toString());
+                exercise.setDescription(exerciseDescriptionEditText.getText().toString());
+                exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
+                exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
+                exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                mExercises.add(exercise);
+                displayExercises();
                 exerciseDialog.dismiss();
                 break;
             }
