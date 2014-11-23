@@ -25,5 +25,6 @@
     <string name="exercise_seconds">Time (Seconds)</string>
     <string name="edit_exercise">Edit Exercise</string>
     <string name="not_set">Not Set</string>
+    <string name="edit_workout">Edit Workout</string>
 
 </resources>
