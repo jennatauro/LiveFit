@@ -1,7 +1,9 @@
 package com.jennatauro.livefit.ui.fragments;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 
+import com.jennatauro.livefit.LivefitApplication;
 import com.squareup.otto.Bus;
 
 import java.util.EnumSet;
@@ -65,4 +67,13 @@ public abstract class LiveFitFragment extends Fragment {
         super.onPause();
         bus.unregister(this);
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        LivefitApplication app = LivefitApplication.getApplication();
+        app.inject(this);
+    }
+
 }

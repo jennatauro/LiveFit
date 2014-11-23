@@ -18,6 +18,7 @@ import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.ui.activities.AddWorkoutActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,9 +36,7 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
     @Inject
     WorkoutAdapter mAdapter;
 
-    @Inject
-    DbHelper mDbHelper;
-
+    private DbHelper mDbHelper;
     private RecyclerView.LayoutManager mLayoutManager;
     private WorkoutsViewHolder mViewHolder;
 
@@ -45,6 +44,8 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_see_all_workouts, container, false);
         mViewHolder = new WorkoutsViewHolder(rootView);
+
+        mDbHelper = new DbHelper(getActivity());
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
@@ -64,14 +65,15 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
 
     private void loadWorkouts() {
         List<Workout> allWorkouts = mDbHelper.getWorkouts();
-        if (allWorkouts.size() == 0) {
+        if (allWorkouts == null || allWorkouts.size() == 0) {
             mViewHolder.noWorkoutsLayout.setVisibility(View.VISIBLE);
             mViewHolder.mRecyclerView.setVisibility(View.GONE);
+            mAdapter.replace(new ArrayList<Workout>());
         } else {
             mViewHolder.noWorkoutsLayout.setVisibility(View.GONE);
             mViewHolder.mRecyclerView.setVisibility(View.VISIBLE);
+            mAdapter.replace(allWorkouts);
         }
-        mAdapter.replace(allWorkouts);
     }
 
     @Override
