@@ -25,7 +25,6 @@ import com.jennatauro.livefit.ui.dynamiclist.StableArrayAdapter;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -68,7 +67,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
         setContentView(R.layout.activity_add_workout);
         super.onCreate(savedInstanceState);
 
-        mAdapter = new StableArrayAdapter(this, R.layout.list_item_exercise, mExercises);
+        mAdapter = new StableArrayAdapter(this, R.layout.list_item_create_exercise, mExercises);
         mListView = (DynamicListView) findViewById(R.id.listview);
 
         mListView.setExerciseList(mExercises);

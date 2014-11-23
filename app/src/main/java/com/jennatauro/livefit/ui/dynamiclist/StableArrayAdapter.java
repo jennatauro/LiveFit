@@ -50,7 +50,7 @@ public class StableArrayAdapter extends ArrayAdapter<Exercise> implements View.O
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             final LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item_exercise, null);
+            convertView = inflater.inflate(R.layout.list_item_create_exercise, null);
         }
 
         Exercise workout = getItem(position);
