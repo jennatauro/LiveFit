@@ -7,11 +7,17 @@ import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Exercise;
+import com.squareup.otto.Bus;
+
+import javax.inject.Inject;
 
 /**
  * Created by jennatauro on 2014-11-22.
  */
 public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> implements View.OnClickListener{
+
+    @Inject
+    Bus bus;
 
     int currentItem;
 
