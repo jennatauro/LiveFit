@@ -4,13 +4,13 @@ package com.jennatauro.livefit.eventBus.events;
  * Created by jennatauro on 2014-11-23.
  */
 public class WorkoutClickedEvent {
-    private int workoutId;
+    private int workoutPosition;
 
     public WorkoutClickedEvent(int workoutId) {
-        this.workoutId = workoutId;
+        this.workoutPosition = workoutId;
     }
 
-    public int getWorkoutId(){
-        return workoutId;
+    public int getWorkoutPosition(){
+        return workoutPosition;
     }
 }

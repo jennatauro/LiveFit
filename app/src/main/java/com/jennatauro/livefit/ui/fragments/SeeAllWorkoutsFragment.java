@@ -3,14 +3,12 @@ package com.jennatauro.livefit.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
@@ -19,7 +17,6 @@ import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.ui.activities.AddWorkoutActivity;
 import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -38,9 +35,6 @@ import butterknife.OnClick;
 public class SeeAllWorkoutsFragment extends LiveFitFragment {
 
     public static final String WORKOUT_ID = "workout_id";
-
-    @Inject
-    Bus bus;
 
     @Inject
     WorkoutAdapter mAdapter;
@@ -116,7 +110,8 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
     @Subscribe
     public void workoutClicked(WorkoutClickedEvent e){
         Intent intent = new Intent(getActivity(), WorkoutDetailsActivity.class);
-        intent.putExtra(WORKOUT_ID, e.getWorkoutId());
+        int workoutId = mWorkouts.get(e.getWorkoutPosition()).getDbId();
+        intent.putExtra(WORKOUT_ID, workoutId);
         startActivity(intent);
     }
 
