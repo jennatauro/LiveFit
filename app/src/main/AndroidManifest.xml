@@ -38,6 +38,12 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name=".ui.activities.EditWorkoutActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

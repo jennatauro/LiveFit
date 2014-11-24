@@ -34,18 +34,18 @@ import butterknife.OnClick;
 /**
  * Created by jennatauro on 2014-11-22.
  */
-public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickListener {
+public class EditWorkoutActivity extends LiveFitActivity implements View.OnClickListener {
 
-    @InjectView(R.id.activity_add_workout_workout_name)
+    @InjectView(R.id.activity_edit_workout_workout_name)
     EditText workoutNameEditText;
 
-    @InjectView(R.id.activity_add_workout_workout_description)
+    @InjectView(R.id.activity_edit_workout_workout_description)
     EditText workoutDescriptionEditText;
 
     @Inject
     DbHelper mDbHelper;
 
-    @InjectView(R.id.add_workout_activity_toolbar)
+    @InjectView(R.id.edit_workout_activity_toolbar)
     Toolbar mToolbar;
 
     private EditText exerciseNameEditText;
@@ -64,7 +64,7 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_add_workout);
+        setContentView(R.layout.activity_edit_workout);
         super.onCreate(savedInstanceState);
 
         mAdapter = new StableArrayAdapter(this, R.layout.list_item_create_exercise, mExercises);
@@ -76,11 +76,11 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
 
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(getResources().getString(R.string.add_workout));
+        getSupportActionBar().setTitle(getResources().getString(R.string.edit_workout));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        findViewById(R.id.create_workout_button).setOnClickListener(this);
+        findViewById(R.id.edit_workout_button).setOnClickListener(this);
         findViewById(R.id.add_exercise_button).setOnClickListener(this);
 
         displayExercises();
@@ -196,22 +196,8 @@ public class AddWorkoutActivity extends LiveFitActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case (R.id.create_workout_button): {
-                Workout workout = new Workout();
-                if (workoutNameEditText.getText().toString().equals("")) {
-                    workout.setTitle(getString(R.string.not_set));
-                } else {
-                    workout.setTitle(workoutNameEditText.getText().toString());
-                }
-                if (workoutDescriptionEditText.getText().toString().equals("")) {
-                    workout.setDescription(getString(R.string.not_set));
-                } else {
-                    workout.setDescription(workoutDescriptionEditText.getText().toString());
-                }
-                workout.setExercises(mExercises);
-
-                mDbHelper.createOrUpdateWorkoutWithExercises(workout);
-                finish();
+            case (R.id.edit_workout_button): {
+                //TODO
             }
             case (R.id.add_exercise_button): {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

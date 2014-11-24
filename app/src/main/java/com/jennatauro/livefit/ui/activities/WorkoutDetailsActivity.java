@@ -1,6 +1,7 @@
 package com.jennatauro.livefit.ui.activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,8 @@ import butterknife.InjectView;
  * Created by jennatauro on 2014-11-23.
  */
 public class WorkoutDetailsActivity extends LiveFitActivity {
+
+    public static final String WORKOUT_ID = "workout_id";
 
     @Inject
     DbHelper mDbHelper;
@@ -87,8 +90,17 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.edit_workout:
+                Intent intent = new Intent(this, EditWorkoutActivity.class);
+                intent.putExtra(WORKOUT_ID, mWorkout.getDbId());
+                startActivity(intent);
+                return true;
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
