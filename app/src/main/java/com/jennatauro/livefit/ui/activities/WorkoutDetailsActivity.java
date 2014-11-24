@@ -54,6 +54,8 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Exercise> mExercises = new ArrayList<Exercise>();
 
+    private int workoutId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_workout_details);
@@ -65,7 +67,7 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        int workoutId = getIntent().getIntExtra(SeeAllWorkoutsFragment.WORKOUT_ID, 0);
+        workoutId = getIntent().getIntExtra(SeeAllWorkoutsFragment.WORKOUT_ID, 0);
 
         setSupportActionBar(mToolbar);
         try {
@@ -80,6 +82,17 @@ public class WorkoutDetailsActivity extends LiveFitActivity {
 
         ((TextView) findViewById(R.id.workout_description)).setText(mWorkout.getDescription());
 
+        displayExercises();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            mWorkout = mDbHelper.getWorkoutForId(workoutId);
+        } catch (SQLException e) {
+            mWorkout = null;
+        }
         displayExercises();
     }
 
