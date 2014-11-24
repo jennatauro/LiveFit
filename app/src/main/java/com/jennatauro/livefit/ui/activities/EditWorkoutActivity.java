@@ -24,6 +24,7 @@ import com.jennatauro.livefit.ui.dynamiclist.DynamicListView;
 import com.jennatauro.livefit.ui.dynamiclist.StableArrayAdapter;
 import com.squareup.otto.Subscribe;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -62,10 +63,20 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
     private Dialog seeExerciseDialog;
     private int editIndex;
 
+    private Workout mWorkout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_edit_workout);
         super.onCreate(savedInstanceState);
+
+        int workoutId = getIntent().getIntExtra(WorkoutDetailsActivity.WORKOUT_ID, 0);
+        try {
+            mWorkout = mDbHelper.getWorkoutForId(workoutId);
+            mExercises = (ArrayList<Exercise>) mDbHelper.getExercisesForWorkout(mWorkout);
+        } catch (SQLException e) {
+            mWorkout = null;
+        }
 
         mAdapter = new StableArrayAdapter(this, R.layout.list_item_create_exercise, mExercises);
         mListView = (DynamicListView) findViewById(R.id.listview);
@@ -83,7 +94,18 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
         findViewById(R.id.edit_workout_button).setOnClickListener(this);
         findViewById(R.id.add_exercise_button).setOnClickListener(this);
 
+        setupWorkout();
+
         displayExercises();
+    }
+
+    private void setupWorkout() {
+        if(!mWorkout.getTitle().equals(getString(R.string.not_set))){
+            workoutNameEditText.setText(mWorkout.getTitle());
+        }
+        if(!mWorkout.getDescription().equals(getString(R.string.not_set))){
+            workoutDescriptionEditText.setText(mWorkout.getDescription());
+        }
     }
 
     @Override
@@ -197,7 +219,20 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.edit_workout_button): {
-                //TODO
+                if (workoutNameEditText.getText().toString().equals("")) {
+                    mWorkout.setTitle(getString(R.string.not_set));
+                } else {
+                    mWorkout.setTitle(workoutNameEditText.getText().toString());
+                }
+                if (workoutDescriptionEditText.getText().toString().equals("")) {
+                    mWorkout.setDescription(getString(R.string.not_set));
+                } else {
+                    mWorkout.setDescription(workoutDescriptionEditText.getText().toString());
+                }
+                mWorkout.setExercises(mExercises);
+
+                mDbHelper.createOrUpdateWorkoutWithExercises(mWorkout);
+                finish();
             }
             case (R.id.add_exercise_button): {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
