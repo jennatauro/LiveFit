@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -153,5 +154,15 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         DbWorkout dbWorkout = DbWorkout.getDao(this).queryForId(id);
         Workout workout = dbWorkout.mapToLocalObject();
         return workout;
+    }
+
+    public void deleteExercise(Exercise exercise) {
+        try {
+            DeleteBuilder<?, Integer> deleteBuilder = DbExercise.getDao(this).deleteBuilder();
+            deleteBuilder.where().eq(DbExercise.ID_FIELD_NAME, exercise.getDbId());
+            deleteBuilder.delete();
+        } catch (SQLException e) {
+            Log.e(e.getMessage(), "Error deleting exercise");
+        }
     }
 }

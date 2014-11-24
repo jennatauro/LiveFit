@@ -168,6 +168,7 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
 
     @Subscribe
     public void editExercise(EditExerciseEvent e) {
+        //TODO NEED TO ACTUALLY EDIT IN DB
         Exercise exercise = e.getExerciseToEdit();
         editIndex = e.getIndex();
 
@@ -209,6 +210,7 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
 
     @Subscribe
     public void exerciseDeleted(ExerciseDeletedEvent e) {
+        //TODO NEED TO ACTUALLY DELETE IN DB
         Exercise exercise = e.getDeletedExercise();
         mExercises.remove(exercise);
         displayExercises();
