@@ -26,6 +26,7 @@ import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -64,6 +65,8 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
     private int editIndex;
 
     private Workout mWorkout;
+
+    private List<Exercise> mExercisesToDelete = new ArrayList<Exercise>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,8 +213,8 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
 
     @Subscribe
     public void exerciseDeleted(ExerciseDeletedEvent e) {
-        //TODO NEED TO ACTUALLY DELETE IN DB
         Exercise exercise = e.getDeletedExercise();
+        mExercisesToDelete.add(exercise);
         mExercises.remove(exercise);
         displayExercises();
     }
@@ -233,6 +236,9 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
                 }
                 mWorkout.setExercises(mExercises);
 
+                for(Exercise deletedExercise : mExercisesToDelete) {
+                    mDbHelper.deleteExercise(deletedExercise);
+                }
                 mDbHelper.createOrUpdateWorkoutWithExercises(mWorkout);
                 finish();
             }
