@@ -67,6 +67,7 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
     private Workout mWorkout;
 
     private List<Exercise> mExercisesToDelete = new ArrayList<Exercise>();
+    private Exercise mExerciseToEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +173,7 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
     @Subscribe
     public void editExercise(EditExerciseEvent e) {
         //TODO NEED TO ACTUALLY EDIT IN DB
-        Exercise exercise = e.getExerciseToEdit();
+        mExerciseToEdit = e.getExerciseToEdit();
         editIndex = e.getIndex();
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -194,20 +195,20 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
         exerciseRepsEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_reps);
         exerciseTimeEditText = (EditText) editExerciseDialog.findViewById(R.id.dialog_exercise_seconds);
 
-        if (!exercise.getTitle().equals(getString(R.string.not_set))) {
-            exerciseNameEditText.setText(exercise.getTitle());
+        if (!mExerciseToEdit.getTitle().equals(getString(R.string.not_set))) {
+            exerciseNameEditText.setText(mExerciseToEdit.getTitle());
         }
-        if (!exercise.getDescription().equals(getString(R.string.not_set))) {
-            exerciseDescriptionEditText.setText(exercise.getDescription());
+        if (!mExerciseToEdit.getDescription().equals(getString(R.string.not_set))) {
+            exerciseDescriptionEditText.setText(mExerciseToEdit.getDescription());
         }
-        if (exercise.getWeight() != 0) {
-            exerciseWeightEditText.setText(exercise.getWeight() + "");
+        if (mExerciseToEdit.getWeight() != 0) {
+            exerciseWeightEditText.setText(mExerciseToEdit.getWeight() + "");
         }
-        if (exercise.getReps() != 0) {
-            exerciseRepsEditText.setText(exercise.getReps() + "");
+        if (mExerciseToEdit.getReps() != 0) {
+            exerciseRepsEditText.setText(mExerciseToEdit.getReps() + "");
         }
-        if (exercise.getSeconds() != 0) {
-            exerciseTimeEditText.setText(exercise.getSeconds() + "");
+        if (mExerciseToEdit.getSeconds() != 0) {
+            exerciseTimeEditText.setText(mExerciseToEdit.getSeconds() + "");
         }
     }
 
@@ -305,33 +306,32 @@ public class EditWorkoutActivity extends LiveFitActivity implements View.OnClick
                 break;
             }
             case (R.id.edit_exercise_button): {
-                Exercise exercise = new Exercise();
                 if (exerciseNameEditText.getText().toString().equals("")) {
-                    exercise.setTitle(getString(R.string.not_set));
+                    mExerciseToEdit.setTitle(getString(R.string.not_set));
                 } else {
-                    exercise.setTitle(exerciseNameEditText.getText().toString());
+                    mExerciseToEdit.setTitle(exerciseNameEditText.getText().toString());
                 }
                 if (exerciseDescriptionEditText.getText().toString().equals("")) {
-                    exercise.setDescription(getString(R.string.not_set));
+                    mExerciseToEdit.setDescription(getString(R.string.not_set));
                 } else {
-                    exercise.setDescription(exerciseDescriptionEditText.getText().toString());
+                    mExerciseToEdit.setDescription(exerciseDescriptionEditText.getText().toString());
                 }
                 if (exerciseWeightEditText.getText().toString().equals("")) {
-                    exercise.setWeight(0);
+                    mExerciseToEdit.setWeight(0);
                 } else {
-                    exercise.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
+                    mExerciseToEdit.setWeight(Integer.parseInt(exerciseWeightEditText.getText().toString()));
                 }
                 if (exerciseRepsEditText.getText().toString().equals("")) {
-                    exercise.setReps(0);
+                    mExerciseToEdit.setReps(0);
                 } else {
-                    exercise.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
+                    mExerciseToEdit.setReps(Integer.parseInt(exerciseRepsEditText.getText().toString()));
                 }
                 if (exerciseTimeEditText.getText().toString().equals("")) {
-                    exercise.setSeconds(0);
+                    mExerciseToEdit.setSeconds(0);
                 } else {
-                    exercise.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
+                    mExerciseToEdit.setSeconds(Integer.parseInt(exerciseTimeEditText.getText().toString()));
                 }
-                mExercises.set(editIndex, exercise);
+                mExercises.set(editIndex, mExerciseToEdit);
                 displayExercises();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(exerciseNameEditText.getWindowToken(), 0);

@@ -22,6 +22,8 @@ import butterknife.InjectView;
  */
 public class FitnessActivity extends LiveFitActivity {
 
+    //TODO week schedule fragment
+
     private String[] mFragmentTitles;
     private ActionBarDrawerToggle mDrawerToggle;
     private LiveFitFragment.MenuOptions currentFragmentMenuOption;
