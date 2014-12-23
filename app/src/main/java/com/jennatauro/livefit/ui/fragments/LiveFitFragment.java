@@ -21,7 +21,7 @@ public abstract class LiveFitFragment extends Fragment {
     Bus bus;
 
     public enum MenuOptions {
-        HOME(0), SEEALLWORKOUTS(1), SCHEDULE(2);
+        SEEALLWORKOUTS(0), SCHEDULE(1);
 
         private int code;
 

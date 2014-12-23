@@ -46,7 +46,7 @@ public class FitnessActivity extends LiveFitActivity {
 
         setSupportActionBar(mToolbar);
 
-        mFragmentTitles = new String[]{Constants.NAV_TITLE_HOME, Constants.NAV_TITLE_SEE_ALL_WORKOUTS, Constants.NAV_TITLE_SCHEDULE};
+        mFragmentTitles = new String[]{Constants.NAV_TITLE_SEE_ALL_WORKOUTS, Constants.NAV_TITLE_SCHEDULE};
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -108,27 +108,24 @@ public class FitnessActivity extends LiveFitActivity {
             }
         }
         currentFragmentMenuOption = menuSelection;
-        if (menuSelection != LiveFitFragment.MenuOptions.HOME) {
 
-            // Create a new fragment
-            LiveFitFragment fragment = LiveFitFragment.getInstance(menuSelection);
-            mTitle = fragment.getTitle();
+        // Create a new fragment
+        LiveFitFragment fragment = LiveFitFragment.getInstance(menuSelection);
+        mTitle = fragment.getTitle();
 
-            getSupportActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
 
-            // Insert the fragment by replacing any existing fragment
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.activity_fitness_content_frame, fragment)
-                    .commit();
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.activity_fitness_content_frame, fragment)
+                .commit();
 
-            // Highlight the selected item, update the title, and close the drawer
-            mDrawerList.setItemChecked(menuSelection.getCode(), true);
+        // Highlight the selected item, update the title, and close the drawer
+        mDrawerList.setItemChecked(menuSelection.getCode(), true);
 
-            mDrawerLayout.closeDrawer(mDrawerList);
-        } else {
-            finish();
-        }
+        mDrawerLayout.closeDrawer(mDrawerList);
+
     }
 
     @Override
