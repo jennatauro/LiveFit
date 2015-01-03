@@ -29,6 +29,20 @@
         <item name="android:paddingBottom">5dp</item>
     </style>
 
+    <style name="MainCustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:background">@color/tab_background</item>
+        <item name="android:textColor">@drawable/selector_tab_text</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="fontPath">fonts/ProximaNova-Regular.otf</item>
+    </style>
+
+
 
 
 </resources>

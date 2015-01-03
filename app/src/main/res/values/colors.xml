@@ -7,4 +7,6 @@
     <color name="main_grey_background">#E0E0EB</color>
     <color name="hint_text_grey">#838287</color>
     <color name="light_yellow">#F7E6AB</color>
+    <color name="tab_background">#EAE9E9</color>
+    <color name="tab_text_off_state">#9f9e9e</color>
 </resources>
