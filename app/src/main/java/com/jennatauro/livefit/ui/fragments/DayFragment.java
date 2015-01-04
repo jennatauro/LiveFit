@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by jennatauro on 2015-01-03.
@@ -26,6 +27,7 @@ public class DayFragment extends LiveFitFragment {
     Button addWorkoutButton;
 
     private static final HashMap<Integer, String> dayOfWeekMap = new HashMap<>();
+    private int day;
 
     public static DayFragment newInstance(int dayOfTheWeek) {
         Bundle args = new Bundle();
@@ -47,13 +49,22 @@ public class DayFragment extends LiveFitFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        int day = getArguments().getInt(EXTRA_DAY_OF_THE_WEEK);
+        day = getArguments().getInt(EXTRA_DAY_OF_THE_WEEK);
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_day, container, false);
         ButterKnife.inject(this, rootView);
 
         addWorkoutButton.setText("Add Workout to " + dayOfWeekMap.get(day));
 
         return rootView;
+    }
+
+    @OnClick(R.id.add_workout_to_day)
+    public void addWorkoutToDay() {
+        showDialogWithAllWorkouts();
+    }
+
+    private void showDialogWithAllWorkouts() {
+        AllWorkoutsFragmentDialog.displayAllWorkoutsDialog(getFragmentManager());
     }
 
     @Override

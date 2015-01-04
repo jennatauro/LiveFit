@@ -13,6 +13,7 @@ import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.ExerciseAdapter;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
 import com.jennatauro.livefit.ui.dynamiclist.StableArrayAdapter;
+import com.jennatauro.livefit.ui.fragments.AllWorkoutsFragmentDialog;
 import com.jennatauro.livefit.ui.fragments.DayFragment;
 import com.jennatauro.livefit.ui.fragments.LiveFitFragment;
 import com.jennatauro.livefit.ui.fragments.SeeAllWorkoutsFragment;
@@ -41,7 +42,8 @@ import dagger.Provides;
                 WorkoutDetailsActivity.class,
                 WorkoutAdapter.class,
                 EditWorkoutActivity.class,
-                DayFragment.class
+                DayFragment.class,
+                AllWorkoutsFragmentDialog.class
         },
         includes = {
                 DataModule.class,
