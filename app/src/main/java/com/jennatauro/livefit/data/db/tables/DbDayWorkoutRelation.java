@@ -67,7 +67,7 @@ public class DbDayWorkoutRelation extends DbTable<WorkoutDayRelation> {
         super.mapFrom(object);
         if (object != null) {
             setWorkoutId(object.getmWorkoutId());
-            setDayOfTheWeekId(object.getmWorkoutId());
+            setDayOfTheWeekId(object.getmDayId());
         }
         return this;
     }

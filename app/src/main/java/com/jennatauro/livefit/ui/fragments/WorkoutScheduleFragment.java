@@ -35,13 +35,13 @@ public class WorkoutScheduleFragment extends LiveFitFragment {
     TabPageIndicator mTabPageIndicator;
 
     protected static class Tab {
-        public static final int TYPE_MONDAY = 0;
-        public static final int TYPE_TUESDAY = 1;
-        public static final int TYPE_WEDNESDAY = 2;
-        public static final int TYPE_THURSDAY = 3;
-        public static final int TYPE_FRIDAY = 4;
-        public static final int TYPE_SATURDAY = 5;
-        public static final int TYPE_SUNDAY = 6;
+        public static final int TYPE_MONDAY = 1;
+        public static final int TYPE_TUESDAY = 2;
+        public static final int TYPE_WEDNESDAY = 3;
+        public static final int TYPE_THURSDAY = 4;
+        public static final int TYPE_FRIDAY = 5;
+        public static final int TYPE_SATURDAY = 6;
+        public static final int TYPE_SUNDAY = 7;
 
         final int titleId;
         final int fragmentType;

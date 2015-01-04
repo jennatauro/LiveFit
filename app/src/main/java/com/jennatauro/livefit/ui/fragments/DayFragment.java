@@ -34,13 +34,13 @@ public class DayFragment extends LiveFitFragment {
         DayFragment dayFragment = new DayFragment();
         dayFragment.setArguments(args);
 
-        dayOfWeekMap.put(0, "Monday");
-        dayOfWeekMap.put(1, "Tuesday");
-        dayOfWeekMap.put(2, "Wednesday");
-        dayOfWeekMap.put(3, "Thursday");
-        dayOfWeekMap.put(4, "Friday");
-        dayOfWeekMap.put(5, "Saturday");
-        dayOfWeekMap.put(6, "Sunday");
+        dayOfWeekMap.put(1, "Monday");
+        dayOfWeekMap.put(2, "Tuesday");
+        dayOfWeekMap.put(3, "Wednesday");
+        dayOfWeekMap.put(4, "Thursday");
+        dayOfWeekMap.put(5, "Friday");
+        dayOfWeekMap.put(6, "Saturday");
+        dayOfWeekMap.put(7, "Sunday");
 
         return dayFragment;
     }
