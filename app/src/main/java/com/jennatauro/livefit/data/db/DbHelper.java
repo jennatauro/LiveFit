@@ -132,6 +132,31 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    public List<Workout> getWorkoutsForDay(int day) {
+        try {
+            List<DbWorkout> dbWorkouts = getWorkoutsForDayFromDb(day);
+            List<Workout> result = new ArrayList<Workout>();
+            for (DbWorkout dbWorkout : dbWorkouts) {
+                Workout workout = dbWorkout.mapToLocalObject();
+                result.add(workout);
+            }
+            return result;
+        }
+        catch(SQLException e){
+            Log.e(e.getMessage(), "Error fetching workouts");
+            return null;
+        }
+    }
+
+    private List<DbWorkout> getWorkoutsForDayFromDb(int day) throws SQLException {
+        List<DbWorkout> dbWorkouts = new ArrayList<>();
+        List<DbDayWorkoutRelation> dbDayWorkoutRelations = DbDayWorkoutRelation.getDao(this).queryBuilder().where().eq(DbDayWorkoutRelation.DAY_OF_WEEK_ID_FIELD_NAME, day).query();
+        for(DbDayWorkoutRelation dbDayWorkoutRelation : dbDayWorkoutRelations) {
+            dbWorkouts.add(DbWorkout.getDao(this).queryForId(dbDayWorkoutRelation.getWorkoutId()));
+        }
+        return dbWorkouts;
+    }
+
     public List<DbWorkout> getWorkoutsFromDb() throws SQLException {
         List<DbWorkout> dbWorkouts = DbWorkout.getDao(this).queryForAll();
         return dbWorkouts;

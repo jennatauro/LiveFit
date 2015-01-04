@@ -1,14 +1,26 @@
 package com.jennatauro.livefit.ui.fragments;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.jennatauro.livefit.R;
+import com.jennatauro.livefit.data.db.DbHelper;
+import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
+import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
+import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,6 +38,15 @@ public class DayFragment extends LiveFitFragment {
 
     private static final HashMap<Integer, String> dayOfWeekMap = new HashMap<>();
     private int mDay;
+
+    @Inject
+    WorkoutAdapter mAdapter;
+
+    private DbHelper mDbHelper;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private WorkoutsViewHolder mViewHolder;
+
+    private List<Workout> mWorkouts;
 
     public static DayFragment newInstance(int dayOfTheWeek) {
         Bundle args = new Bundle();
@@ -53,6 +74,17 @@ public class DayFragment extends LiveFitFragment {
 
         addWorkoutButton.setText("Add Workout to " + dayOfWeekMap.get(mDay));
 
+        mViewHolder = new WorkoutsViewHolder(rootView);
+
+        mDbHelper = new DbHelper(getActivity());
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mViewHolder.mRecyclerView.setAdapter(mAdapter);
+        
+        loadWorkouts();
+
         return rootView;
     }
 
@@ -68,5 +100,36 @@ public class DayFragment extends LiveFitFragment {
     @Override
     public String getTitle() {
         return null;
+    }
+
+    @Subscribe
+    public void workoutClicked(WorkoutClickedEvent e){
+        loadWorkouts();
+    }
+
+    private void loadWorkouts() {
+        mWorkouts = mDbHelper.getWorkoutsForDay(mDay);
+        if (mWorkouts == null || mWorkouts.size() == 0) {
+            mViewHolder.noWorkoutsLayout.setVisibility(View.VISIBLE);
+            mViewHolder.mRecyclerView.setVisibility(View.GONE);
+            mAdapter.replace(new ArrayList<Workout>());
+        } else {
+            mViewHolder.noWorkoutsLayout.setVisibility(View.GONE);
+            mViewHolder.mRecyclerView.setVisibility(View.VISIBLE);
+            mAdapter.replace(mWorkouts);
+        }
+    }
+
+    static class WorkoutsViewHolder {
+
+        @InjectView(R.id.day_workouts_recyclerview)
+        RecyclerView mRecyclerView;
+
+        @InjectView(R.id.no_workouts_for_this_day_yet_layout)
+        LinearLayout noWorkoutsLayout;
+
+        WorkoutsViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 }
