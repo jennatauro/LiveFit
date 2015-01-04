@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.jennatauro.livefit.R;
 
-import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
@@ -27,7 +25,7 @@ public class DayFragment extends LiveFitFragment {
     Button addWorkoutButton;
 
     private static final HashMap<Integer, String> dayOfWeekMap = new HashMap<>();
-    private int day;
+    private int mDay;
 
     public static DayFragment newInstance(int dayOfTheWeek) {
         Bundle args = new Bundle();
@@ -49,11 +47,11 @@ public class DayFragment extends LiveFitFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        day = getArguments().getInt(EXTRA_DAY_OF_THE_WEEK);
+        mDay = getArguments().getInt(EXTRA_DAY_OF_THE_WEEK);
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_day, container, false);
         ButterKnife.inject(this, rootView);
 
-        addWorkoutButton.setText("Add Workout to " + dayOfWeekMap.get(day));
+        addWorkoutButton.setText("Add Workout to " + dayOfWeekMap.get(mDay));
 
         return rootView;
     }
@@ -64,7 +62,7 @@ public class DayFragment extends LiveFitFragment {
     }
 
     private void showDialogWithAllWorkouts() {
-        AllWorkoutsFragmentDialog.displayAllWorkoutsDialog(getFragmentManager());
+        AllWorkoutsFragmentDialog.displayAllWorkoutsDialog(getFragmentManager(), mDay);
     }
 
     @Override

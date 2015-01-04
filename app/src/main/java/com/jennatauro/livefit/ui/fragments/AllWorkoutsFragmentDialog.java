@@ -1,5 +1,6 @@
 package com.jennatauro.livefit.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,11 @@ import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
+import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +38,11 @@ import butterknife.InjectView;
  */
 public class AllWorkoutsFragmentDialog extends DialogFragment {
 
+    @Inject
+    Bus bus;
+
     public static final String FRAGMENT_TAG = "com.jenatauro.livefit.AllWorkoutsFragmentDialog";
+    private static final String EXTRA_DAY = "extra_day";
 
     @Inject
     WorkoutAdapter mAdapter;
@@ -43,8 +53,15 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
 
     private List<Workout> mWorkouts;
 
-    public static AllWorkoutsFragmentDialog newInstance() {
-        return new AllWorkoutsFragmentDialog();
+    private int mDay;
+
+    public static AllWorkoutsFragmentDialog newInstance(int day) {
+        Bundle args = new Bundle();
+        args.putInt(EXTRA_DAY, day);
+
+        AllWorkoutsFragmentDialog fragment = new AllWorkoutsFragmentDialog();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -55,6 +72,8 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
 
         LivefitApplication app = LivefitApplication.getApplication();
         app.inject(this);
+
+        mDay = getArguments().getInt(EXTRA_DAY);
 
         mViewHolder = new WorkoutsViewHolder(view);
 
@@ -70,6 +89,18 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
+    }
+
     private void loadWorkouts() {
         mWorkouts = mDbHelper.getWorkouts();
         if (mWorkouts == null || mWorkouts.size() == 0) {
@@ -83,7 +114,7 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         }
     }
 
-    public static void displayAllWorkoutsDialog(FragmentManager fm) {
+    public static void displayAllWorkoutsDialog(FragmentManager fm, int day) {
         FragmentTransaction ft = fm.beginTransaction();
         Fragment prev = fm.findFragmentByTag(FRAGMENT_TAG);
         if (prev != null) {
@@ -92,7 +123,7 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         ft.addToBackStack(null);
 
         // Create and show the dialog.
-        DialogFragment newFragment = AllWorkoutsFragmentDialog.newInstance();
+        DialogFragment newFragment = AllWorkoutsFragmentDialog.newInstance(day);
         newFragment.show(ft, FRAGMENT_TAG);
     }
 
@@ -115,6 +146,17 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         WorkoutsViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
+    }
+
+    @Subscribe
+    public void workoutClicked(WorkoutClickedEvent e){
+        int workoutId = mWorkouts.get(e.getWorkoutPosition()).getDbId();
+        createWorkoutDateRelation();
+        dismiss();
+    }
+
+    private void createWorkoutDateRelation() {
+
     }
 
 }
