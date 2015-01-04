@@ -10,12 +10,14 @@ import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.jennatauro.livefit.data.db.tables.DbDayWorkoutRelation;
 import com.jennatauro.livefit.data.db.tables.DbExercise;
 import com.jennatauro.livefit.data.db.tables.DbTable;
 import com.jennatauro.livefit.data.db.tables.DbWorkout;
 import com.jennatauro.livefit.data.models.Exercise;
 import com.jennatauro.livefit.data.models.LocalObject;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.data.models.WorkoutDayRelation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,7 +35,8 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 
     public static final Class[] TABLES = {
             DbWorkout.class,
-            DbExercise.class
+            DbExercise.class,
+            DbDayWorkoutRelation.class
     };
 
     public DbHelper(Context context) {
@@ -82,9 +85,19 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         dbExercise.mapFrom(exercise);
         dbExercise.setWorkout(dbWorkout);
         dao.createOrUpdate(dbExercise);
-        // If this was a create, we set the DB ID on the passed-in work item
+        // If this was a create, we set the DB ID on the passed-in exercise
         exercise.setDbId(dbExercise.getId());
         return dbExercise;
+    }
+
+    public DbDayWorkoutRelation createOrUpdateDayWorkoutRelation(WorkoutDayRelation workoutDayRelation) throws SQLException {
+        Dao<DbDayWorkoutRelation, Integer> dao = DbDayWorkoutRelation.getDao(this);
+        DbDayWorkoutRelation dbDayWorkoutRelation = new DbDayWorkoutRelation();
+        dbDayWorkoutRelation.mapFrom(workoutDayRelation);
+        dao.createOrUpdate(dbDayWorkoutRelation);
+        workoutDayRelation.setDbId(dbDayWorkoutRelation.getId());
+
+        return dbDayWorkoutRelation;
     }
 
     private DbWorkout createOrUpdateWorkout(Workout workout) throws SQLException {

@@ -19,12 +19,14 @@ import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.data.models.WorkoutDayRelation;
 import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,12 +153,19 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
     @Subscribe
     public void workoutClicked(WorkoutClickedEvent e){
         int workoutId = mWorkouts.get(e.getWorkoutPosition()).getDbId();
-        createWorkoutDateRelation();
+        createWorkoutDateRelation(workoutId);
         dismiss();
     }
 
-    private void createWorkoutDateRelation() {
-
+    private void createWorkoutDateRelation(int workoutId) {
+        try {
+            WorkoutDayRelation workoutDayRelation = new WorkoutDayRelation();
+            workoutDayRelation.setmDayId(mDay);
+            workoutDayRelation.setmWorkoutId(workoutId);
+            mDbHelper.createOrUpdateDayWorkoutRelation(workoutDayRelation);
+        } catch (SQLException e) {
+            Log.e(e.getMessage(), "Error creating workout day relation");
+        }
     }
 
 }
