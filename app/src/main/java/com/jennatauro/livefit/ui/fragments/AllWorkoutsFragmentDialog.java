@@ -21,6 +21,7 @@ import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.data.models.WorkoutDayRelation;
 import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
+import com.jennatauro.livefit.eventBus.events.WorkoutDayRelationUpdateEvent;
 import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
 import com.squareup.otto.Bus;
@@ -154,6 +155,7 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
     public void workoutClicked(WorkoutClickedEvent e){
         int workoutId = mWorkouts.get(e.getWorkoutPosition()).getDbId();
         createWorkoutDateRelation(workoutId);
+        bus.post(new WorkoutDayRelationUpdateEvent());
         dismiss();
     }
 

@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
+import com.jennatauro.livefit.data.models.WorkoutDayRelation;
 import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
+import com.jennatauro.livefit.eventBus.events.WorkoutDayRelationUpdateEvent;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
 import com.squareup.otto.Subscribe;
 
@@ -103,7 +105,7 @@ public class DayFragment extends LiveFitFragment {
     }
 
     @Subscribe
-    public void workoutClicked(WorkoutClickedEvent e){
+    public void workoutDayRelationUpdate(WorkoutDayRelationUpdateEvent e){
         loadWorkouts();
     }
 
