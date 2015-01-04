@@ -3,11 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text"
+    <Button
+        android:id="@+id/add_workout_to_day"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="day"
-        android:textColor="@color/black"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/yellow_button_selector"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"/>
 
 </LinearLayout>
