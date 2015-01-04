@@ -47,7 +47,6 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "com.jenatauro.livefit.AllWorkoutsFragmentDialog";
     private static final String EXTRA_DAY = "extra_day";
 
-    @Inject
     WorkoutAdapter mAdapter;
 
     private DbHelper mDbHelper;
@@ -72,6 +71,8 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.dialog_all_workouts, container, false);
         ButterKnife.inject(this, view);
+
+        mAdapter = new WorkoutAdapter(false);
 
         LivefitApplication app = LivefitApplication.getApplication();
         app.inject(this);

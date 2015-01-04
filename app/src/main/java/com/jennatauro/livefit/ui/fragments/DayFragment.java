@@ -1,8 +1,10 @@
 package com.jennatauro.livefit.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.data.models.WorkoutDayRelation;
 import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.eventBus.events.WorkoutDayRelationUpdateEvent;
+import com.jennatauro.livefit.ui.activities.DoWorkoutActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
 import com.squareup.otto.Subscribe;
 
@@ -41,7 +44,6 @@ public class DayFragment extends LiveFitFragment {
     private static final HashMap<Integer, String> dayOfWeekMap = new HashMap<>();
     private int mDay;
 
-    @Inject
     WorkoutAdapter mAdapter;
 
     private DbHelper mDbHelper;
@@ -73,6 +75,8 @@ public class DayFragment extends LiveFitFragment {
         mDay = getArguments().getInt(EXTRA_DAY_OF_THE_WEEK);
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_day, container, false);
         ButterKnife.inject(this, rootView);
+
+        mAdapter = new WorkoutAdapter(true);
 
         addWorkoutButton.setText("Add Workout to " + dayOfWeekMap.get(mDay));
 
@@ -107,6 +111,14 @@ public class DayFragment extends LiveFitFragment {
     @Subscribe
     public void workoutDayRelationUpdate(WorkoutDayRelationUpdateEvent e){
         loadWorkouts();
+    }
+
+    @Subscribe
+    public void workoutClicked(WorkoutClickedEvent e) {
+        if(e.getDoWorkout()) {
+            Intent intent = new Intent(getActivity(), DoWorkoutActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void loadWorkouts() {

@@ -5,12 +5,16 @@ package com.jennatauro.livefit.eventBus.events;
  */
 public class WorkoutClickedEvent {
     private int workoutPosition;
+    private boolean doWorkout;
 
-    public WorkoutClickedEvent(int workoutId) {
+    public WorkoutClickedEvent(int workoutId, boolean doWorkout) {
         this.workoutPosition = workoutId;
+        this.doWorkout = doWorkout;
     }
 
     public int getWorkoutPosition(){
         return workoutPosition;
     }
+
+    public boolean getDoWorkout() { return doWorkout; }
 }

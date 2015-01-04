@@ -6,6 +6,7 @@ import android.content.Context;
 import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.eventBus.MainThreadBus;
 import com.jennatauro.livefit.ui.activities.AddWorkoutActivity;
+import com.jennatauro.livefit.ui.activities.DoWorkoutActivity;
 import com.jennatauro.livefit.ui.activities.EditWorkoutActivity;
 import com.jennatauro.livefit.ui.activities.FitnessActivity;
 import com.jennatauro.livefit.ui.activities.LiveFitActivity;
@@ -43,11 +44,11 @@ import dagger.Provides;
                 WorkoutAdapter.class,
                 EditWorkoutActivity.class,
                 DayFragment.class,
-                AllWorkoutsFragmentDialog.class
+                AllWorkoutsFragmentDialog.class,
+                DoWorkoutActivity.class
         },
         includes = {
-                DataModule.class,
-                AdaptersModule.class
+                DataModule.class
         },
         library = true,
         complete = false

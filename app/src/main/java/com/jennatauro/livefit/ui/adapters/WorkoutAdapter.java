@@ -23,6 +23,13 @@ public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
     @Inject
     Bus bus;
 
+    boolean mDoWorkout = false;
+
+
+    public WorkoutAdapter(boolean doWorkout) {
+        mDoWorkout = doWorkout;
+    }
+
     @Override
     public WorkoutsViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
@@ -55,7 +62,7 @@ public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
 
     @Override
     public void onItemClick(RecyclerViewBaseHolder viewHolder) {
-        bus.post(new WorkoutClickedEvent(viewHolder.getPosition()));
+        bus.post(new WorkoutClickedEvent(viewHolder.getPosition(), mDoWorkout));
         super.onItemClick(viewHolder);
     }
 }

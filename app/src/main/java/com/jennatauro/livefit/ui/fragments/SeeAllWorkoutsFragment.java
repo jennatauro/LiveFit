@@ -36,7 +36,6 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
 
     public static final String WORKOUT_ID = "workout_id";
 
-    @Inject
     WorkoutAdapter mAdapter;
 
     private DbHelper mDbHelper;
@@ -49,6 +48,8 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_see_all_workouts, container, false);
         ButterKnife.inject(this, rootView);
+        mAdapter = new WorkoutAdapter(false);
+
         mViewHolder = new WorkoutsViewHolder(rootView);
 
         mDbHelper = new DbHelper(getActivity());
