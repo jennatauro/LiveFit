@@ -115,7 +115,7 @@ public class DayFragment extends LiveFitFragment {
 
     @Subscribe
     public void workoutClicked(WorkoutClickedEvent e) {
-        if(e.getDoWorkout()) {
+        if(e.getDoWorkout() && mWorkouts.size() != 0) {
             Intent intent = new Intent(getActivity(), DoWorkoutActivity.class);
             intent.putExtra(DoWorkoutActivity.EXTRA_WORKOUT_ID, mWorkouts.get(e.getWorkoutPosition()).getDbId());
             startActivity(intent);

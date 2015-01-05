@@ -35,5 +35,7 @@
     <string name="sunday">SUNDAY</string>
     <string name="no_workouts_for_this_day_yet">You haven\'t scheduled any workouts for this day yet!</string>
     <string name="start_workout">Start Workout</string>
+    <string name="no_exercises">You don\'t have any exercises for this workout!</string>
+    <string name="add_exercises">Add Exercises</string>
 
 </resources>

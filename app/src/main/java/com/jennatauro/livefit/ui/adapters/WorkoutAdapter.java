@@ -62,7 +62,7 @@ public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
 
     @Override
     public void onItemClick(RecyclerViewBaseHolder viewHolder) {
-        bus.post(new WorkoutClickedEvent(viewHolder.getPosition(), mDoWorkout));
         super.onItemClick(viewHolder);
+        bus.post(new WorkoutClickedEvent(viewHolder.getPosition(), mDoWorkout));
     }
 }
