@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_grey_background">
 
-    <TextView
+    <android.support.v7.widget.Toolbar
+        style="@style/ToolbarStyle"
+        android:id="@+id/do_workout_toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent" />
+
+    <Button
+        android:id="@+id/start_workout_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="DOIN WORKOUT"
-        android:textColor="@color/black"/>
+        android:layout_height="wrap_content"
+        android:text="@string/start_workout"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/yellow_button_selector"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
