@@ -188,6 +188,12 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
         return dbExercises;
     }
 
+    public Exercise getExerciseForId(int id) throws SQLException {
+        DbExercise dbExercise = DbExercise.getDao(this).queryForId(id);
+        Exercise exercise = dbExercise.mapToLocalObject();
+        return exercise;
+    }
+
     public Workout getWorkoutForId(int id) throws SQLException {
         DbWorkout dbWorkout = DbWorkout.getDao(this).queryForId(id);
         Workout workout = dbWorkout.mapToLocalObject();

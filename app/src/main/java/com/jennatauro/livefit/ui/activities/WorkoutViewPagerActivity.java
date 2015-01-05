@@ -52,16 +52,16 @@ public class WorkoutViewPagerActivity extends LiveFitActivity {
     private List<ViewPagerPage> mPages = new ArrayList<>();
 
     protected static class ViewPagerPage {
-        final String title;
+        final int exerciseId;
         final Class<? extends Fragment> clazz;
 
-        public ViewPagerPage(String titleId, Class<? extends Fragment> clazz) {
-            this.title = titleId;
+        public ViewPagerPage(int exerciseId, Class<? extends Fragment> clazz) {
+            this.exerciseId = exerciseId;
             this.clazz = clazz;
         }
 
-        public String getTitle() {
-            return title;
+        public int getExerciseId() {
+            return exerciseId;
         }
 
         public Fragment getFragment() {
@@ -102,7 +102,7 @@ public class WorkoutViewPagerActivity extends LiveFitActivity {
 
     protected void addViewPagerPages() {
         for (Exercise exercise : mWorkout.getExercises()) {
-            addPage(new ViewPagerPage(exercise.getTitle(), ExerciseViewPagerFragment.class));
+            addPage(new ViewPagerPage(exercise.getDbId(), ExerciseViewPagerFragment.class));
         }
     }
 
@@ -121,15 +121,14 @@ public class WorkoutViewPagerActivity extends LiveFitActivity {
             public Fragment getItem(int i) {
                 Fragment fragment = mPages.get(i).getFragment();
                 Bundle args = new Bundle();
-                String title = getPageTitle(i).toString();
-                args.putString(VIEW_PAGER_TITLE_KEY, title);
+                args.putInt(ExerciseViewPagerFragment.EXTRA_EXERCISE_ID, mPages.get(i).getExerciseId());
                 fragment.setArguments(args);
                 return fragment;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return mPages.get(position).getTitle();
+                return null;
             }
         };
 
