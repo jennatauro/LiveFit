@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.jennatauro.livefit.LivefitApplication;
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.models.Workout;
-import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.squareup.otto.Bus;
 
@@ -60,9 +60,14 @@ public class WorkoutAdapter extends RecyclerViewAdapter<Workout> {
         }
     }
 
+    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
     @Override
-    public void onItemClick(RecyclerViewBaseHolder viewHolder) {
-        super.onItemClick(viewHolder);
-        bus.post(new WorkoutClickedEvent(viewHolder.getPosition(), mDoWorkout));
+    public void onItemClick(RecyclerViewAdapter.RecyclerViewBaseHolder viewHolder, View view){
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(null, viewHolder.itemView, viewHolder.getPosition(), viewHolder.getItemId());
+        }
     }
 }

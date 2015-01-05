@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by jennatauro on 2014-11-22.
  */
-public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter <RecyclerViewAdapter.RecyclerViewBaseHolder> implements ViewAdapter<T> {
+public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter <RecyclerViewAdapter.RecyclerViewBaseHolder> implements ViewAdapter<T>, LiveFitItemClickAdapter {
 
     protected List<T> items;
     protected AdapterView.OnItemClickListener mOnItemClickListener;

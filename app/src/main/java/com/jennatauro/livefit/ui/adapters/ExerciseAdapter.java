@@ -57,6 +57,9 @@ public class ExerciseAdapter extends RecyclerViewAdapter<Exercise> {
         bus.post(new SeeExerciseEvent(exercise));
     }
 
+    @Override
+    public void onItemClick(RecyclerViewBaseHolder viewHolder, View clickedView) {}
+
     public static class ExercisesViewHolder extends RecyclerViewBaseHolder {
         TextView exerciseName;
         View seeExercise;

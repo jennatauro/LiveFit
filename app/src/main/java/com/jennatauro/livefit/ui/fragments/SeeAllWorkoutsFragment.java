@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
-import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.ui.activities.AddWorkoutActivity;
 import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
@@ -32,7 +32,7 @@ import butterknife.OnClick;
 /**
  * Created by jennatauro on 2014-10-09.
  */
-public class SeeAllWorkoutsFragment extends LiveFitFragment {
+public class SeeAllWorkoutsFragment extends LiveFitFragment implements AdapterView.OnItemClickListener{
 
     public static final String WORKOUT_ID = "workout_id";
 
@@ -60,6 +60,8 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
         mViewHolder.mRecyclerView.setAdapter(mAdapter);
 
         loadWorkouts();
+
+        mAdapter.setOnItemClickListener(this);
 
         return rootView;
     }
@@ -94,6 +96,14 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
         startActivity(intent);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), WorkoutDetailsActivity.class);
+        int workoutId = mWorkouts.get(position).getDbId();
+        intent.putExtra(WORKOUT_ID, workoutId);
+        startActivity(intent);
+    }
+
 
     static class WorkoutsViewHolder {
 
@@ -106,14 +116,6 @@ public class SeeAllWorkoutsFragment extends LiveFitFragment {
         WorkoutsViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
-    }
-
-    @Subscribe
-    public void workoutClicked(WorkoutClickedEvent e){
-        Intent intent = new Intent(getActivity(), WorkoutDetailsActivity.class);
-        int workoutId = mWorkouts.get(e.getWorkoutPosition()).getDbId();
-        intent.putExtra(WORKOUT_ID, workoutId);
-        startActivity(intent);
     }
 
 }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.jennatauro.livefit.LivefitApplication;
@@ -20,7 +21,6 @@ import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.data.models.WorkoutDayRelation;
-import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.eventBus.events.WorkoutDayRelationUpdateEvent;
 import com.jennatauro.livefit.ui.activities.WorkoutDetailsActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
@@ -39,7 +39,7 @@ import butterknife.InjectView;
 /**
  * Created by jennatauro on 2015-01-04.
  */
-public class AllWorkoutsFragmentDialog extends DialogFragment {
+public class AllWorkoutsFragmentDialog extends DialogFragment implements AdapterView.OnItemClickListener{
 
     @Inject
     Bus bus;
@@ -90,6 +90,8 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
 
         loadWorkouts();
 
+        mAdapter.setOnItemClickListener(this);
+
         return view;
     }
 
@@ -139,6 +141,14 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        int workoutId = mWorkouts.get(position).getDbId();
+        createWorkoutDateRelation(workoutId);
+        bus.post(new WorkoutDayRelationUpdateEvent());
+        dismiss();
+    }
+
     static class WorkoutsViewHolder {
 
         @InjectView(R.id.all_workouts_recyclerview)
@@ -150,14 +160,6 @@ public class AllWorkoutsFragmentDialog extends DialogFragment {
         WorkoutsViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
-    }
-
-    @Subscribe
-    public void workoutClicked(WorkoutClickedEvent e){
-        int workoutId = mWorkouts.get(e.getWorkoutPosition()).getDbId();
-        createWorkoutDateRelation(workoutId);
-        bus.post(new WorkoutDayRelationUpdateEvent());
-        dismiss();
     }
 
     private void createWorkoutDateRelation(int workoutId) {

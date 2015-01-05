@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -15,7 +16,6 @@ import com.jennatauro.livefit.R;
 import com.jennatauro.livefit.data.db.DbHelper;
 import com.jennatauro.livefit.data.models.Workout;
 import com.jennatauro.livefit.data.models.WorkoutDayRelation;
-import com.jennatauro.livefit.eventBus.events.WorkoutClickedEvent;
 import com.jennatauro.livefit.eventBus.events.WorkoutDayRelationUpdateEvent;
 import com.jennatauro.livefit.ui.activities.DoWorkoutActivity;
 import com.jennatauro.livefit.ui.adapters.WorkoutAdapter;
@@ -34,7 +34,7 @@ import butterknife.OnClick;
 /**
  * Created by jennatauro on 2015-01-03.
  */
-public class DayFragment extends LiveFitFragment {
+public class DayFragment extends LiveFitFragment implements AdapterView.OnItemClickListener{
 
     public static final String EXTRA_DAY_OF_THE_WEEK = "extra_day_of_the_week";
 
@@ -91,6 +91,8 @@ public class DayFragment extends LiveFitFragment {
         
         loadWorkouts();
 
+        mAdapter.setOnItemClickListener(this);
+
         return rootView;
     }
 
@@ -113,15 +115,6 @@ public class DayFragment extends LiveFitFragment {
         loadWorkouts();
     }
 
-    @Subscribe
-    public void workoutClicked(WorkoutClickedEvent e) {
-        if(e.getDoWorkout() && mWorkouts.size() != 0) {
-            Intent intent = new Intent(getActivity(), DoWorkoutActivity.class);
-            intent.putExtra(DoWorkoutActivity.EXTRA_WORKOUT_ID, mWorkouts.get(e.getWorkoutPosition()).getDbId());
-            startActivity(intent);
-        }
-    }
-
     private void loadWorkouts() {
         mWorkouts = mDbHelper.getWorkoutsForDay(mDay);
         if (mWorkouts == null || mWorkouts.size() == 0) {
@@ -133,6 +126,13 @@ public class DayFragment extends LiveFitFragment {
             mViewHolder.mRecyclerView.setVisibility(View.VISIBLE);
             mAdapter.replace(mWorkouts);
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), DoWorkoutActivity.class);
+        intent.putExtra(DoWorkoutActivity.EXTRA_WORKOUT_ID, mWorkouts.get(position).getDbId());
+        startActivity(intent);
     }
 
     static class WorkoutsViewHolder {
