@@ -43,6 +43,12 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name=".ui.activities.WorkoutViewPagerActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

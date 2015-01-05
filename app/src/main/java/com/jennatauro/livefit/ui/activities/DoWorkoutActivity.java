@@ -95,4 +95,12 @@ public class DoWorkoutActivity extends LiveFitActivity {
         intent.putExtra(WORKOUT_ID, mWorkout.getDbId());
         startActivity(intent);
     }
+
+    @OnClick(R.id.start_workout_button)
+    public void startWorkout() {
+        Intent intent = new Intent(this, WorkoutViewPagerActivity.class);
+        intent.putExtra(EXTRA_WORKOUT_ID, mWorkout.getDbId());
+        startActivity(intent);
+        finish();
+    }
 }
