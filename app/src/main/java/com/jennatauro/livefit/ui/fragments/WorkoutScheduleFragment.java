@@ -56,7 +56,7 @@ public class WorkoutScheduleFragment extends LiveFitFragment {
         }
 
         public Fragment getFragment() {
-            if(fragmentType >= 0 && fragmentType <=6) {
+            if(fragmentType >= 1 && fragmentType <=7) {
                 return DayFragment.newInstance(fragmentType);
             } else {
                 throw new UnsupportedOperationException();
