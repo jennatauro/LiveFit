@@ -1,5 +1,8 @@
 package com.jennatauro.livefit.ui.fragments;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -89,6 +92,9 @@ public class ExerciseViewPagerFragment extends LiveFitFragment {
             public void onFinish() {
                 timer.setText("done!");
                 startTimer.setVisibility(View.GONE);
+                Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+                Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), alarm);
+                r.play();
             }
         }.start();
     }
