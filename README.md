@@ -26,5 +26,22 @@ And use the app as you complete each exercise!
 ![livefittimer1](https://cloud.githubusercontent.com/assets/4675165/5624166/c5694b5e-952e-11e4-9914-d94c65c194a3.png)
 ![livefittimer2](https://cloud.githubusercontent.com/assets/4675165/5624165/c568fbcc-952e-11e4-9dd9-9a870c82bd84.png)
 
-Credit
-======
+Credits
+=======
+
+[ORMLite][1]
+[Calligraphy][2]
+[Dagger][3]
+[Butterknife][4]
+[ViewPagerIndicator][5]
+[DynamicListView][6]
+[Otto][7]
+
+[1]: http://ormlite.com/
+[2]: https://github.com/chrisjenx/Calligraphy
+[3]: https://github.com/square/dagger
+[4]: https://github.com/JakeWharton/butterknife
+[5]: https://github.com/JakeWharton/Android-ViewPagerIndicator
+[6]: https://www.youtube.com/watch?v=_BZIvjMgH-Q
+[7]: https://github.com/square/otto
+
