@@ -30,11 +30,17 @@ Credits
 =======
 
 [ORMLite][1]
+
 [Calligraphy][2]
+
 [Dagger][3]
+
 [Butterknife][4]
+
 [ViewPagerIndicator][5]
+
 [DynamicListView][6]
+
 [Otto][7]
 
 [1]: http://ormlite.com/
