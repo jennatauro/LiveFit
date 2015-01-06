@@ -23,8 +23,8 @@ View and create a workout schedule,
 
 And use the app as you complete each exercise!
 
-![livefittimer1](https://cloud.githubusercontent.com/assets/4675165/5624138/60ff6996-952e-11e4-9a99-fcb8c14ca813.png)
-![livefittimer2](https://cloud.githubusercontent.com/assets/4675165/5624140/6107dcca-952e-11e4-82e8-57d05aee40db.png)
+![livefittimer1](https://cloud.githubusercontent.com/assets/4675165/5624166/c5694b5e-952e-11e4-9914-d94c65c194a3.png)
+![livefittimer2](https://cloud.githubusercontent.com/assets/4675165/5624165/c568fbcc-952e-11e4-9dd9-9a870c82bd84.png)
 
 Credit
 ======
